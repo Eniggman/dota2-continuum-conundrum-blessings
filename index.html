@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Дары Аганима (Aghanim's Blessings) — Интерактивная карта-созвездие | Dota 2: Колдовской континуум</title>
+  <meta name="description" content="Интерактивная карта-созвездие дерева «Дары Аганима» (Aghanim's Blessings) из зимнего ивента Dota 2 «Лабиринт Аганима: Колдовской континуум» (2021–2022). Все 109 узлов, 150 800 волшебных фрагментов и все комментарии Аганима на русском и английском." />
+  <meta name="keywords" content="Dota 2, Aghanim's Labyrinth, The Continuum Conundrum, Aghanim's Blessings, Дары Аганима, Лабиринт Аганима, Колдовской континуум, созвездие, комментарии Аганима" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Дары Аганима — Интерактивная карта-созвездие (Dota 2: Колдовской континуум)" />
+  <meta property="og:description" content="Все 109 узлов дерева «Дары Аганима» (150 800 фрагментов), 15 героев-ветеранов и полная коллекция ироничных комментариев Аганима на русском с оригиналом EN." />
+  <meta property="og:url" content="https://eniggman.github.io/dota2-continuum-conundrum-blessings/" />
+  <meta property="og:image" content="https://eniggman.github.io/dota2-continuum-conundrum-blessings/preview.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/jpeg" href="./preview.jpg" />
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap');
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background:
+        radial-gradient(ellipse at 65% 48%, rgba(44, 28, 94, 0.42) 0%, transparent 56%),
+        radial-gradient(ellipse at 32% 72%, rgba(16, 48, 96, 0.34) 0%, transparent 52%),
+        radial-gradient(ellipse at 50% 50%, #0d122b 0%, #060917 65%, #03050d 100%);
+      color: #e8ecff;
+      overflow-x: hidden;
+    }
+    .font-arcane { font-family: 'Cinzel', Georgia, serif; letter-spacing: 0.04em; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: rgba(8, 11, 28, 0.7); }
+    ::-webkit-scrollbar-thumb { background: rgba(99, 102, 241, 0.45); border-radius: 999px; }
+    .dota-ribbon {
+      background: linear-gradient(90deg, rgba(88, 72, 214, 0.92) 0%, rgba(114, 70, 218, 0.88) 42%, rgba(65, 58, 160, 0.42) 78%, transparent 100%);
+      box-shadow: 0 0 22px rgba(99, 102, 241, 0.35);
+    }
+    @media (min-width: 1024px) {
+      .dota-sidebar {
+        background: linear-gradient(175deg, rgba(16, 22, 52, 0.94) 0%, rgba(10, 14, 34, 0.96) 55%, rgba(7, 10, 24, 0.98) 100%);
+        border-right: 1px solid rgba(110, 128, 224, 0.35);
+        box-shadow: 12px 0 42px rgba(0, 0, 0, 0.65);
+      }
+    }
+    @media (max-width: 1023px) {
+      .dota-sidebar {
+        background: linear-gradient(180deg, rgba(14, 19, 44, 0.96) 0%, rgba(8, 11, 28, 0.98) 100%);
+        border-top: 1px solid rgba(110, 128, 224, 0.35);
+      }
+    }
+    .dota-quote-card {
+      background: linear-gradient(135deg, rgba(32, 39, 86, 0.94) 0%, rgba(21, 25, 58, 0.96) 100%);
+      border: 1px solid rgba(129, 140, 248, 0.55);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+    .dota-play-btn {
+      background: linear-gradient(180deg, #3c7d58 0%, #24573c 55%, #193d2a 100%);
+      border: 1px solid #5eb884;
+      box-shadow: 0 0 18px rgba(56, 178, 114, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+    }
+    .dota-play-btn:hover { background: linear-gradient(180deg, #49966a 0%, #2d6b4a 55%, #1f4d35 100%); }
+    .glass-hud {
+      background: rgba(11, 15, 36, 0.86);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(116, 130, 220, 0.3);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+    }
+    .continuum-title {
+      background: linear-gradient(180deg, #ffffff 0%, #bae6fd 52%, #7dd3fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.65));
+    }
+    @keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes spinRev  { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+    @keyframes pulseSel { 0%, 100% { opacity: 0.55; transform: scale(1); } 50% { opacity: 1; transform: scale(1.12); } }
+    @keyframes dashFlow { to { stroke-dashoffset: -36; } }
+    @keyframes twinkle  { 0%, 100% { opacity: 0.25; } 50% { opacity: 0.9; } }
+    .ring-spin-slow { transform-origin: 0px 0px; animation: spinSlow 210s linear infinite; }
+    .ring-spin-rev  { transform-origin: 0px 0px; animation: spinRev 260s linear infinite; }
+    .node-selected-halo { transform-box: fill-box; transform-origin: center; animation: pulseSel 2s ease-in-out infinite; }
+    .path-preview-beam { stroke-dasharray: 10 8; animation: dashFlow 1.1s linear infinite; }
+    .star-twinkle { animation: twinkle 4.5s ease-in-out infinite; }
+    .medallion-node { cursor: pointer; transition: opacity 0.2s ease; }
+    .medallion-node:hover .medallion-ring { filter: brightness(1.35); }
+    .medallion-node.dimmed { opacity: 0.14; }
+    .map-canvas-wrap { touch-action: none; user-select: none; cursor: grab; }
+    .map-canvas-wrap.grabbing { cursor: grabbing; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+  <header class="sticky top-0 z-30 bg-[#070a19]/95 border-b border-indigo-500/25 backdrop-blur-md">
+    <div class="max-w-[1700px] mx-auto px-3 sm:px-4 py-2 flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <img id="imgHeaderCrest" alt="Лабиринт Аганима" class="w-10 h-7 rounded object-cover border border-amber-400/50 shadow-[0_0_12px_rgba(56,189,248,0.4)] shrink-0" />
+        <div class="min-w-0">
+          <div class="font-arcane text-xs sm:text-sm font-extrabold tracking-wider text-sky-100 leading-none truncate">
+            ЛАБИРИНТ АГАНИМА <span class="text-indigo-300 font-semibold text-[10px] sm:text-xs">• BATTLE PASS</span>
+          </div>
+          <div class="text-[10px] text-sky-300/75 tracking-wide mt-0.5 truncate">
+            Колдовской континуум — Дары Аганима (2021–2022)
+          </div>
+        </div>
+      </div>
+      <nav class="dota-ribbon rounded-md px-2 py-1 flex items-center gap-1 sm:gap-2 text-[11px] sm:text-xs font-bold tracking-wider uppercase">
+        <button id="btnViewMap" type="button" class="px-2.5 py-1 rounded text-white bg-white/15 shadow-sm transition">Дары Аганима</button>
+        <span class="text-indigo-200/40">/</span>
+        <button id="btnViewReader" type="button" class="px-2.5 py-1 rounded text-indigo-100/80 hover:text-white transition">Книга реплик</button>
+        <span class="text-indigo-200/40">/</span>
+        <button id="btnInfo" type="button" class="px-2.5 py-1 rounded text-indigo-100/80 hover:text-white transition">О событии</button>
+      </nav>
+      <div class="flex items-center gap-2">
+        <div class="relative">
+          <input id="searchInput" type="text" placeholder="Поиск дара, героя, цитаты..."
+            class="w-44 sm:w-56 bg-[#0d1229] border border-indigo-400/35 rounded-md pl-2.5 pr-7 py-1 text-xs text-sky-50 placeholder-indigo-300/50 focus:outline-none focus:border-sky-400 transition" />
+          <button id="btnClearSearch" type="button" title="Очистить" class="hidden absolute right-2 top-1/2 -translate-y-1/2 text-indigo-300 hover:text-white text-xs font-bold">✕</button>
+        </div>
+        <button id="btnToggleLabels" type="button" title="Показать/скрыть подписи узлов на карте"
+          class="hidden md:inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium bg-[#111735] hover:bg-indigo-600/35 border border-indigo-400/30 text-indigo-100 transition">Подписи</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="mapViewContainer" class="flex-1 flex flex-col-reverse lg:flex-row relative overflow-hidden" style="min-height: calc(100vh - 54px);">
+    <aside class="dota-sidebar w-full lg:w-[390px] xl:w-[425px] shrink-0 z-20 flex flex-col max-h-[68vh] lg:max-h-none overflow-y-auto">
+      <div class="p-3 flex flex-col gap-2.5 flex-1">
+        <div class="flex items-center justify-between gap-2 pb-2 border-b border-indigo-400/20">
+          <div class="font-arcane text-lg sm:text-xl font-black leading-none continuum-title uppercase">Колдовской<br />континуум</div>
+          <div class="flex items-center gap-2.5 bg-[#0b1028]/80 border border-indigo-400/25 rounded-lg px-2.5 py-1.5">
+            <div id="ascensionRoman" class="w-8 h-8 rounded bg-gradient-to-b from-slate-200 to-slate-400 text-[#0c1024] font-arcane font-black text-sm flex items-center justify-center shadow-inner border border-white/60">I</div>
+            <div>
+              <div class="text-[9px] uppercase tracking-wider text-indigo-300/75">Текущее вознесение</div>
+              <div id="ascensionName" class="text-xs font-bold text-white tracking-wide uppercase">УЧЕНИК</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-sky-400 drop-shadow-[0_0_6px_rgba(56,189,248,0.8)]" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L6 9.5L12 22L18 9.5L12 2ZM12 5.2L15.1 9.4L12 17.5L8.9 9.4L12 5.2Z"/>
+              </svg>
+              <div>
+                <div class="text-[10px] text-indigo-200/70 leading-tight">Потрачено волшебных фрагментов</div>
+                <div id="sidebarFragments" class="text-sm font-bold text-white tracking-wide">0 <span class="text-indigo-300/65 font-normal text-xs">/ 150 800</span></div>
+              </div>
+            </div>
+            <div class="text-right">
+              <div class="text-[10px] text-indigo-200/70">Изучено узлов</div>
+              <div id="sidebarNodes" class="text-sm font-bold text-sky-300">0 / 109</div>
+            </div>
+          </div>
+          <div class="h-1.5 w-full rounded-full bg-slate-900/90 overflow-hidden border border-white/10">
+            <div id="barNodes" class="h-full rounded-full transition-all duration-300" style="width: 1%; background: linear-gradient(90deg, #e879f9, #818cf8);"></div>
+          </div>
+          <div class="h-1.5 w-full rounded-full bg-slate-900/90 overflow-hidden border border-white/10">
+            <div id="barFragments" class="h-full rounded-full transition-all duration-300" style="width: 1%; background: linear-gradient(90deg, #38bdf8, #3b82f6);"></div>
+          </div>
+        </div>
+
+        <div id="branchFilterBar" class="flex flex-wrap gap-1"></div>
+
+        <div class="dota-quote-card rounded-lg p-3 flex flex-col gap-2.5">
+          <div class="flex items-start gap-3">
+            <div class="relative w-14 h-14 rounded-md overflow-hidden border-2 border-sky-400/60 shadow-[0_0_16px_rgba(56,189,248,0.4)] shrink-0 bg-slate-950">
+              <img id="detailIcon" alt="Иконка дара" class="w-full h-full object-cover" />
+              <span id="detailRingBadge" class="absolute bottom-0 right-0 px-1 text-[9px] font-bold bg-black/80 text-amber-300"></span>
+            </div>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-start justify-between gap-2">
+                <h2 id="detailTitleRu" class="text-sm font-extrabold uppercase tracking-wide text-white leading-snug"></h2>
+                <div class="flex items-center gap-1 shrink-0 bg-[#0b1026]/85 border border-sky-400/35 rounded px-1.5 py-0.5">
+                  <span id="detailCost" class="text-xs font-bold text-white"></span>
+                  <svg class="w-3.5 h-3.5 text-sky-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L6 9.5L12 22L18 9.5L12 2Z"/></svg>
+                </div>
+              </div>
+              <div class="flex flex-wrap items-center gap-1.5 mt-1">
+                <span id="detailTierBadge" class="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-indigo-500/25 text-indigo-200 border border-indigo-400/30"></span>
+                <span id="detailOccurrenceBadge" class="text-[10px] text-sky-300/85"></span>
+              </div>
+            </div>
+          </div>
+
+          <div id="detailEffect" class="text-xs text-sky-100/90 bg-[#0a0e24]/70 border border-indigo-400/20 rounded px-2.5 py-2 leading-relaxed"></div>
+
+          <div class="relative bg-[#0c112a]/75 rounded-md p-3 border-l-2 border-sky-400">
+            <div class="flex items-center justify-between gap-2 mb-1.5">
+              <div class="flex items-center gap-2">
+                <img id="imgAghanimMini" alt="Аганим" class="w-6 h-6 rounded-full object-cover border border-sky-400/60" />
+                <span class="text-[10px] uppercase tracking-wider font-bold text-sky-300">Реплика Аганима</span>
+              </div>
+              <button id="btnToggleEn" type="button" class="text-[10px] px-2 py-0.5 rounded bg-indigo-500/20 hover:bg-indigo-500/40 border border-indigo-400/35 text-indigo-100 transition">Оригинал (EN)</button>
+            </div>
+            <blockquote id="detailQuoteRu" class="text-[13px] leading-relaxed text-white italic"></blockquote>
+            <div class="mt-1.5 text-right text-xs font-bold text-sky-200/90 italic">— Аганим</div>
+            <div id="detailQuoteEnWrap" class="hidden mt-2.5 pt-2 border-t border-indigo-400/25">
+              <div class="text-[10px] uppercase tracking-wider text-indigo-300/80 mb-0.5">Оригинал Valve (EN):</div>
+              <p id="detailQuoteEn" class="text-[11px] leading-relaxed text-indigo-100/80 italic"></p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            <button id="btnUnlockSelected" type="button" class="py-2 px-3 rounded-md text-xs font-bold uppercase tracking-wide transition bg-indigo-600 hover:bg-indigo-500 text-white border border-indigo-300/40 shadow">Изучить дар</button>
+            <button id="btnTracePath" type="button" class="py-2 px-3 rounded-md text-xs font-semibold transition bg-[#12193b] hover:bg-sky-500/25 text-sky-200 border border-sky-400/35">Проложить путь</button>
+          </div>
+          <div id="pathSummaryBox" class="hidden text-[11px] text-amber-200 bg-amber-500/15 border border-amber-400/35 rounded px-2.5 py-1.5"></div>
+        </div>
+
+        <div class="flex items-center gap-1.5 mt-auto pt-1">
+          <button id="btnPrevQuote" type="button" class="flex-1 py-1.5 px-2 rounded bg-[#111735] hover:bg-indigo-600/35 border border-indigo-400/25 text-xs font-medium text-indigo-100 transition">← Пред.</button>
+          <button id="btnRandomQuote" type="button" class="py-1.5 px-3 rounded bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/35 text-xs font-semibold text-amber-200 transition">Случайная</button>
+          <button id="btnNextQuote" type="button" class="flex-1 py-1.5 px-2 rounded bg-[#111735] hover:bg-indigo-600/35 border border-indigo-400/25 text-xs font-medium text-indigo-100 transition">След. →</button>
+        </div>
+
+        <div class="flex items-center gap-2 pt-2 border-t border-indigo-400/20">
+          <button id="btnDemoPath" type="button" class="flex-1 py-1.5 px-2 rounded text-[11px] font-semibold bg-sky-500/15 hover:bg-sky-500/25 border border-sky-400/35 text-sky-200 transition">Демо-прокачка</button>
+          <button id="btnResetProgress" type="button" class="py-1.5 px-2.5 rounded text-[11px] font-semibold bg-rose-500/15 hover:bg-rose-500/25 border border-rose-400/35 text-rose-200 transition">Сброс</button>
+          <button id="btnUnlockAll" type="button" class="flex-1 dota-play-btn py-1.5 px-2.5 rounded text-[11px] font-bold uppercase tracking-wider text-emerald-50 transition">Открыть все 109</button>
+        </div>
+      </div>
+    </aside>
+
+    <section class="relative flex-1 min-h-[54vh] lg:min-h-0 flex flex-col overflow-hidden">
+      <div id="mapCanvasWrap" class="map-canvas-wrap flex-1 relative w-full h-full min-h-[440px] lg:min-h-[620px]">
+        <svg id="constellationSvg" class="w-full h-full block" viewBox="-610 -560 1220 1120" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <radialGradient id="nebulaCore" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.28" />
+              <stop offset="32%" stop-color="#4f46e5" stop-opacity="0.14" />
+              <stop offset="68%" stop-color="#7e22ce" stop-opacity="0.06" />
+              <stop offset="100%" stop-color="#050816" stop-opacity="0" />
+            </radialGradient>
+            <radialGradient id="starFlare" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95" />
+              <stop offset="30%" stop-color="#93c5fd" stop-opacity="0.45" />
+              <stop offset="100%" stop-color="#3b82f6" stop-opacity="0" />
+            </radialGradient>
+            <filter id="beamGlow" x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur stdDeviation="3.8" result="blur" />
+              <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+            </filter>
+            <filter id="medallionGlow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="5" result="blur" />
+              <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+            </filter>
+            <clipPath id="clipR32"><circle cx="0" cy="0" r="28" /></clipPath>
+            <clipPath id="clipR22"><circle cx="0" cy="0" r="19" /></clipPath>
+            <clipPath id="clipR19"><circle cx="0" cy="0" r="16.5" /></clipPath>
+            <clipPath id="clipR14"><circle cx="0" cy="0" r="11.8" /></clipPath>
+          </defs>
+          <g id="viewportGroup">
+            <circle cx="0" cy="0" r="560" fill="url(#nebulaCore)" />
+            <g id="starfieldLayer"></g>
+            <g id="astrolabeLayer"></g>
+            <g id="edgesLayer"></g>
+            <g id="pathPreviewLayer"></g>
+            <g id="nodesLayer"></g>
+          </g>
+        </svg>
+
+        <div id="mapTooltip" class="hidden pointer-events-none fixed z-40 max-w-xs dota-quote-card rounded-lg px-3 py-2 text-xs">
+          <div class="flex items-center justify-between gap-2">
+            <div id="tooltipTitle" class="font-bold text-white uppercase text-[11px]"></div>
+            <div id="tooltipCost" class="text-[11px] font-bold text-sky-300 shrink-0"></div>
+          </div>
+          <div id="tooltipPreview" class="text-[11px] text-indigo-100/85 italic mt-1 line-clamp-2"></div>
+        </div>
+
+        <div class="absolute bottom-3 left-3 z-20 flex items-center gap-1.5 glass-hud rounded-lg p-1.5">
+          <button id="btnZoomIn" type="button" title="Приблизить" class="w-8 h-8 rounded bg-[#131938] hover:bg-indigo-600/45 text-sky-100 font-bold text-sm transition">+</button>
+          <button id="btnZoomOut" type="button" title="Отдалить" class="w-8 h-8 rounded bg-[#131938] hover:bg-indigo-600/45 text-sky-100 font-bold text-sm transition">−</button>
+          <button id="btnResetView" type="button" title="В центр" class="px-2.5 h-8 rounded bg-[#131938] hover:bg-indigo-600/45 text-indigo-100 text-xs font-medium transition">Центр</button>
+        </div>
+
+        <div class="hidden sm:flex absolute top-3 right-3 z-20 items-center gap-3 glass-hud rounded-lg px-3 py-1.5 text-[11px] text-indigo-100/85">
+          <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full border-2 border-amber-400 bg-sky-500/40 inline-block"></span> Крупный (25)</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full border border-sky-400 bg-indigo-900 inline-block"></span> Малый (68)</span>
+          <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full border-2 border-rose-400 bg-purple-900 inline-block"></span> Ветеран (15)</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <main id="readerViewContainer" class="hidden flex-1 max-w-[1500px] w-full mx-auto px-4 py-6">
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+      <div>
+        <h2 class="font-arcane text-xl sm:text-2xl font-bold text-white">Книга реплик Аганима</h2>
+        <p class="text-xs sm:text-sm text-indigo-200/75 mt-0.5">Все 42 уникальных типа даров (109 узлов на созвездии, 150 800 волшебных фрагментов). Нажми «На карте», чтобы подсветить узел в созвездии.</p>
+      </div>
+      <label class="inline-flex items-center gap-2 text-xs text-indigo-100 cursor-pointer glass-hud rounded-lg px-3 py-2">
+        <input id="chkReaderEn" type="checkbox" class="accent-indigo-500 rounded" />
+        <span>Показывать английский оригинал</span>
+      </label>
+    </div>
+    <div id="readerBranchBar" class="flex flex-wrap gap-1.5 mb-5"></div>
+    <div id="readerGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
+  </main>
+
+  <div id="infoModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div class="dota-quote-card max-w-xl w-full rounded-xl overflow-hidden relative">
+      <div class="relative h-44 overflow-hidden">
+        <img id="imgModalBanner" alt="Лабиринт Аганима: Колдовской континуум" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-t from-[#15193a] via-transparent to-black/30"></div>
+        <button id="btnCloseModal" type="button" class="absolute top-3 right-3 w-8 h-8 rounded-lg bg-black/65 hover:bg-indigo-600/70 text-white font-bold text-sm">✕</button>
+        <div class="absolute bottom-3 left-4 font-arcane text-lg font-extrabold text-white drop-shadow">Лабиринт Аганима: Колдовской континуум</div>
+      </div>
+      <div class="p-5 space-y-3 text-xs sm:text-sm text-indigo-100/90 leading-relaxed">
+        <p class="italic text-sky-200/95 border-l-2 border-sky-400 pl-3">
+          «Аганим Великий стал Аганимом Множественным! Пробиваясь с боем через комнаты Хранилища, вы будете получать волшебные фрагменты, которые можно возвращать колдуну в обмен на постоянные дары или героев-ветеранов.» — официальная страница Dota 2.
+        </p>
+        <p><strong>Полные игровые данные:</strong> все <strong>109 узлов</strong> (1 стартовый + 25 крупных + 68 малых + 15 героев-ветеранов 2020 года) и их точная стоимость (<strong>150 800 волшебных фрагментов</strong>) взяты из Dota 2 Wiki и Liquipedia. Все портреты героев, иконки предметов и арты — официальные материалы Valve.</p>
+        <p><strong>Комментарии Аганима:</strong> оригинальная русская реплика подтверждена по скриншоту клиента для стартового узла <em>«+1 к зарядам бутыли»</em>, а остальные 41 комментарий переведены с полных оригинальных английских реплик Valve (переключатель <strong>«Оригинал (EN)»</strong> доступен в каждой карточке).</p>
+        <div class="flex items-center justify-between pt-2">
+          <div class="flex items-center gap-2 text-[11px] text-indigo-300/75">
+            <img id="imgModalDevice" alt="Механизм Континуума" class="w-10 h-7 rounded object-cover border border-sky-400/40" />
+            <span>Клик — выбрать • Двойной клик — изучить узел</span>
+          </div>
+          <button id="btnModalOk" type="button" class="dota-play-btn px-4 py-1.5 rounded text-xs font-bold uppercase tracking-wider text-white">К созвездию</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const ASSETS = {"aghanim_banner": "./preview.jpg", "aghanim_portrait": "./preview.jpg", "bp_crest": "./preview.jpg", "continuum_device": "./preview.jpg", "vet_magnus": "./assets/vet_magnus.png", "vet_mars": "./assets/vet_mars.png", "vet_omni": "./assets/vet_omni.png", "vet_snap": "./assets/vet_snap.png", "vet_tusk": "./assets/vet_tusk.png", "vet_slark": "./assets/vet_slark.png", "vet_sniper": "./assets/vet_sniper.png", "vet_ta": "./assets/vet_ta.png", "vet_ursa": "./assets/vet_ursa.png", "vet_viper": "./assets/vet_viper.png", "vet_weaver": "./assets/vet_weaver.png", "vet_disrupt": "./assets/vet_disrupt.png", "vet_qop": "./assets/vet_qop.png", "vet_ww": "./assets/vet_ww.png", "vet_wd": "./assets/vet_wd.png", "item_bottle": "./assets/item_bottle.png", "item_flask": "./assets/item_flask.png", "item_clarity": "./assets/item_clarity.png", "item_boots": "./assets/item_boots.png", "item_phase_boots": "./assets/item_phase_boots.png", "item_hand_of_midas": "./assets/item_hand_of_midas.png", "item_aegis": "./assets/item_aegis.png", "item_tome_of_knowledge": "./assets/item_tome_of_knowledge.png", "item_aghanims_shard": "./assets/item_aghanims_shard.png", "item_ultimate_scepter": "./assets/item_ultimate_scepter.png", "item_kaya": "./assets/item_kaya.png", "item_aether_lens": "./assets/item_aether_lens.png", "item_energy_booster": "./assets/item_energy_booster.png", "item_staff_of_wizardry": "./assets/item_staff_of_wizardry.png", "item_mystic_staff": "./assets/item_mystic_staff.png", "item_basher": "./assets/item_basher.png", "item_armlet": "./assets/item_armlet.png", "item_blades_of_attack": "./assets/item_blades_of_attack.png", "item_bfury": "./assets/item_bfury.png", "item_dragon_lance": "./assets/item_dragon_lance.png", "item_butterfly": "./assets/item_butterfly.png", "item_blade_of_alacrity": "./assets/item_blade_of_alacrity.png", "item_ogre_axe": "./assets/item_ogre_axe.png", "item_platemail": "./assets/item_platemail.png", "item_talisman_of_evasion": "./assets/item_talisman_of_evasion.png", "item_cloak": "./assets/item_cloak.png", "item_vitality_booster": "./assets/item_vitality_booster.png", "item_ring_of_health": "./assets/item_ring_of_health.png", "item_cheese": "./assets/item_cheese.png", "item_bloodstone": "./assets/item_bloodstone.png", "item_dagon": "./assets/item_dagon.png", "item_aeon_disk": "./assets/item_aeon_disk.png", "item_hyperstone": "./assets/item_hyperstone.png", "item_wind_lace": "./assets/item_wind_lace.png", "item_relic": "./assets/item_relic.png", "item_sange": "./assets/item_sange.png"};
+    document.getElementById('imgHeaderCrest').src = ASSETS.bp_crest;
+    document.getElementById('imgAghanimMini').src = ASSETS.aghanim_portrait;
+    document.getElementById('imgModalBanner').src = ASSETS.aghanim_banner;
+    document.getElementById('imgModalDevice').src = ASSETS.continuum_device;
+
+    const BRANCHES = [
+      { id: 'all', name: 'Все', color: '#818cf8' },
+      { id: 'bottle', name: 'Бутыль', color: '#38bdf8' },
+      { id: 'economy', name: 'Торговцы', color: '#f59e0b' },
+      { id: 'magic', name: 'Магия', color: '#a855f7' },
+      { id: 'combat', name: 'Бой', color: '#f43f5e' },
+      { id: 'defense', name: 'Защита', color: '#10b981' },
+      { id: 'death', name: 'Смерть', color: '#e879f9' },
+      { id: 'veterans', name: 'Ветераны', color: '#facc15' }
+    ];
+    const BRANCH_MAP = Object.fromEntries(BRANCHES.map(b => [b.id, b]));
+
+    const BLESSING_TYPES = [
+      { typeId: 'bottle_charges', branch: 'bottle', tier: 'starter', icon: 'item_bottle', titleRu: '+1 к зарядам бутыли', titleEn: 'Bottle Charges +1', effectRu: 'Дополнительный заряд бутыли при посещении Хранилища Континуума.', costs: [100], officialRu: true, quoteRu: 'Не спорь. Просто возьми ещё один заряд бутыли. Почему? Потому что заряды бутыли — это хорошо. Мне нужно, чтобы у тебя были заряды бутыли. Просто поверь мне, ладно?', quoteEn: "Don't argue. Just take this extra bottle charge. Why? Because it's good to have bottle charges. I need you to have bottle charges. Just trust me on this, OK?" },
+      { typeId: 'bottle_duration', branch: 'bottle', tier: 'major', icon: 'item_bottle', titleRu: '+1 сек. к длительности бутыли', titleEn: '+1s Bottle Duration', effectRu: 'Увеличивает длительность действия каждого глотка Bottle на +1 сек.', costs: [300, 3000], quoteRu: 'Погодите-ка секундочку. Что это за чарующий аромат? Чья-то бутыль наполнена вовсе не рунами! Меня не проведёшь. Ну-ка, чья она? Выкладывай. Прямо Аганиму в рот выливай! Я сейчас ужасно на взводе.', quoteEn: "Wait a second. What's that enchanting aroma? Someone's bottle is filled with something other than runes! Can't slip one by me. Whose is it? Spill it. Spill it right into Aghanim's mouth. I am really on edge right now." },
+      { typeId: 'bottle_ms_20', branch: 'bottle', tier: 'major', icon: 'item_phase_boots', titleRu: '+20% к скорости от бутыли', titleEn: '+20% Bottle Movement Speed', effectRu: 'Даёт +20% к скорости передвижения на время действия Bottle.', costs: [1000], quoteRu: 'Не пойми меня неправильно, но если ты не умеешь совмещать несколько простейших дел на бегу по Хранилищу Континуума, то помрёшь ещё быстрее, чем я... то есть, чем думали все остальные Аганимы.', quoteEn: "Don't take this the wrong way, but if you can't juggle multiple mundane tasks while sprinting through the Continuum Vault, you're going to die even faster than I-- I mean, all of the other Aghanims thought." },
+      { typeId: 'bottle_ms_10', branch: 'bottle', tier: 'minor', icon: 'item_boots', titleRu: '+10% к скорости от бутыли', titleEn: '10% Bottle Movement Speed', effectRu: 'Даёт +10% к скорости передвижения на время действия Bottle.', costs: [1400], quoteRu: 'Не пойми меня неправильно, но если ты не умеешь совмещать несколько простейших дел на бегу по Хранилищу Континуума, то помрёшь ещё быстрее, чем я... то есть, чем думали все остальные Аганимы.', quoteEn: "Don't take this the wrong way, but if you can't juggle multiple mundane tasks while sprinting through the Continuum Vault, you're going to die even faster than I-- I mean, all of the other Aghanims thought." },
+      { typeId: 'starting_potion', branch: 'bottle', tier: 'major', icon: 'item_flask', titleRu: 'Стартовое зелье', titleEn: 'Starting Potion', effectRu: 'Выдаёт случайное зелье при входе в Хранилище Континуума.', costs: [1000], quoteRu: 'Тяжеловато выживать в Хранилище Континуума? Попробуй одно из этих зелий. Нет-нет, не здесь! Я подсуну его тебе, когда войдёшь в Хранилище. В этом нет ничего постыдного, просто народ вокруг вечно странно на такое косится.', quoteEn: "Having trouble staying alive in the Continuum Vault? Try one of these potions. No, no. Not here. I'll slip it to you when you enter the vault. I mean, it's nothing to be ashamed about, but people are so weird about these things." },
+      { typeId: 'potion_healing', branch: 'bottle', tier: 'major', icon: 'item_cheese', titleRu: '+15% к лечению от зелий', titleEn: '+15% Potion Healing', effectRu: 'Усиливает восстановление здоровья от зелий на +15%.', costs: [2000], quoteRu: 'Смотрю, у тебя уже вырабатывается привыкание к этим штукам. Я бы посоветовал сбавить обороты, но момент для меня сейчас не самый удачный. Вот разберёмся с этой континуумной неурядицей — и обязательно займёмся тобой. Торжественно обещаю.', quoteEn: "You're really building a tolerance to these things. I'd say you should cut back, but the timing on that's not very good for me right now. But right after we solve this conundrum dealie we'll definitely focus on you. I officially promise." },
+      { typeId: 'potion_mana', branch: 'bottle', tier: 'minor', icon: 'item_clarity', titleRu: '+5% к мане от зелий', titleEn: '+5% Potion Mana', effectRu: 'Увеличивает восстановление маны от зелий на +5% за узел.', costs: [1000, 1400, 1400], quoteRu: 'Каждый волшебник помнит, когда у него впервые кончилась мана. А каждый великий волшебник помнит, когда она кончилась в последний раз. Потому что, понимаешь ли, сделал так, чтобы это больше не повторялось. Уточняю лишь потому, что иначе может показаться, будто последний раз был недавно или вроде того. Но нет! Это было очень, очень давно. И вообще пустяк. Ничего плохого не случилось, мы даже посмеялись. Все стали чуточку лучше как личности — а ведь именно это главное.', quoteEn: "Every wizard remembers the first time they ran out of mana. And every great wizard remembers the last time they ran out. Because, you know, they made sure it didn't happen again. I only clarify that last part because it I realize it could sound like they remember the last time it happened because the last time it happened was recently or something like that. But it wasn't. It was a very, very long time ago. And it was barely even a thing. Nothing bad happened, and there were even a few laughs. Everyone walked away a better person, too. Which is what's really important." },
+      { typeId: 'gold_150', branch: 'economy', tier: 'major', icon: 'item_hand_of_midas', titleRu: '+150 стартового золота', titleEn: '+150 Gold', effectRu: 'Добавляет +150 стартового золота в начале забега.', costs: [300], quoteRu: 'Какая богатая фантазия! Никто и никогда раньше не просил золота. Нам стоит быть поосторожнее, иначе это ещё перерастёт в опасную тенденцию.', quoteEn: "How imaginative you are. No one has ever asked for gold before. We better be careful here or this could start a dangerous trend." },
+      { typeId: 'gold_50', branch: 'economy', tier: 'minor', icon: 'item_hand_of_midas', titleRu: '+50 стартового золота', titleEn: '+50 Gold', effectRu: 'Добавляет +50 стартового золота за узел.', costs: [300, 800, 1400, 2000], quoteRu: 'Какая богатая фантазия! Никто и никогда раньше не просил золота. Нам стоит быть поосторожнее, иначе это ещё перерастёт в опасную тенденцию.', quoteEn: "How imaginative you are. No one has ever asked for gold before. We better be careful here or this could start a dangerous trend." },
+      { typeId: 'roshan_10', branch: 'economy', tier: 'major', icon: 'item_aegis', titleRu: '10% скидки у Рошана', titleEn: '10% Roshan Discount', effectRu: 'Снижает цены в лавке Рошана на 10%.', costs: [1000], quoteRu: 'Все те болваны, что дерутся с Рошаном ради бессмертия, — мотайте на ус! Дипломатия — утраченное искусство. Но не для Рошана. Он старой закалки. Очень, очень старой закалки. Хотя... образование у него, видать, так себе. Обокрасть торговца? Ну что за деревенщина!', quoteEn: "All those other idiots fighting Roshan to gain immortality, take note. Diplomacy is such a lost art. But not for Roshan. He's old school. Really, really old school. Thought...it was probably a poor quality education. I mean, stealing from a shopkeeper? What a rube!" },
+      { typeId: 'roshan_5', branch: 'economy', tier: 'minor', icon: 'item_aegis', titleRu: '5% скидки у Рошана', titleEn: '5% Roshan discount', effectRu: 'Дополнительно снижает цены в лавке Рошана на 5%.', costs: [1400], quoteRu: 'Все те болваны, что дерутся с Рошаном ради бессмертия, — мотайте на ус! Дипломатия — утраченное искусство. Но не для Рошана. Он старой закалки. Очень, очень старой закалки. Хотя... образование у него, видать, так себе. Обокрасть торговца? Ну что за деревенщина!', quoteEn: "All those other idiots fighting Roshan to gain immortality, take note. Diplomacy is such a lost art. But not for Roshan. He's old school. Really, really old school. Thought...it was probably a poor quality education. I mean, stealing from a shopkeeper? What a rube!" },
+      { typeId: 'oracle_10', branch: 'economy', tier: 'major', icon: 'item_mystic_staff', titleRu: '10% скидки у Оракула', titleEn: '10% Oracle Discount', effectRu: 'Снижает цены в лавке Оракула на 10%.', costs: [2000], quoteRu: 'Только полный идиот платит полную цену в лавке этого остолопа-предсказателя. Надо требовать скидку! Разумеется, с меня-то вообще денег не берут, но тебе он, пожалуй, уступит аж 10%.', quoteEn: "Only a moron pays full price at that idiot fortune teller's stall. You have to demand a discount. Obviously I'm not expected to pay at all, but for you he might go as high as 10%." },
+      { typeId: 'oracle_5', branch: 'economy', tier: 'minor', icon: 'item_mystic_staff', titleRu: '5% скидки у Оракула', titleEn: '5% Oracle discount', effectRu: 'Дополнительно снижает цены в лавке Оракула на 5%.', costs: [2000], quoteRu: 'Только полный идиот платит полную цену в лавке этого остолопа-предсказателя. Надо требовать скидку! Разумеется, с меня-то вообще денег не берут, но тебе он, пожалуй, уступит аж 5%.', quoteEn: "Only a moron pays full price at that idiot fortune teller's stall. You have to demand a discount. Obviously I'm not expected to pay at all, but for you he might go as high as 5%." },
+      { typeId: 'starting_tome', branch: 'economy', tier: 'major', icon: 'item_tome_of_knowledge', titleRu: '+3 к стартовому тому', titleEn: '+3 Starting Tome', effectRu: 'При входе в Хранилище вы получаете том на +3 к основному атрибуту.', costs: [1000, 3500], quoteRu: 'А что если каждый раз, когда ты входишь в Хранилище Континуума, я буду вручать тебе фолиант, дающий +3 к твоему основному атрибуту? Правда здорово?', quoteEn: "What if every time you entered the Continuum Vault, I could offer you a tome that grants +3 of your Primary Attribute? Wouldn't that be neat?" },
+      { typeId: 'boss_tome', branch: 'economy', tier: 'major', icon: 'item_tome_of_knowledge', titleRu: '+5 к тому босса', titleEn: '+5 Boss Tome', effectRu: 'За победу над боссом выпадает том на +5 к случайному атрибуту.', costs: [2500, 3500], quoteRu: 'Вот этот дар хорош. Каждый раз, одолев босса, ты найдёшь том на +5 к случайному атрибуту. Уверен, тебе бы хотелось выбирать атрибут самому, но по-моему, сюрприз куда веселее. А раз уж я это вообще никак не контролирую, советую полюбить элемент неожиданности.', quoteEn: "This one's nice. Whenever you defeat a boss, you'll find a tome that grants +5 of a random Attribute. I'm sure you'd like to choose said attribute, but I think a surprise is more fun. And since I have absolutely no control over it, I urge you to embrace the whole surprise angle." },
+      { typeId: 'shard_reroll', branch: 'magic', tier: 'major', icon: 'item_aghanims_shard', titleRu: '+1 реролл малого осколка', titleEn: '+1 Minor Shard Reroll', effectRu: 'Даёт +1 перевыбор предложенных малых осколков за узел.', costs: [1000, 3000, 3500], quoteRu: 'Не нравится то, что предлагает Аганим? Что ж, я мог бы подсказать, куда тебе засунуть свои фрагменты. Но раз уж ты помогаешь вытащить из Хранилища Континуума тех бедных, беззащитных, никчёмных, глупых застрявших Аганимов... Если вежливо попросишь, я, так и быть, позволю выбрать что-нибудь другое.', quoteEn: "Don't like what Aghanim has to offer? Well, I could tell you where to stick your fragments. But since you're helping those other poor, defenseless, worthless, stupid, trapped Aghanims get out of the Continuum Vault... If you ask nicely, I just might let you choose something else." },
+      { typeId: 'shard_upgrade', branch: 'magic', tier: 'major', icon: 'item_ultimate_scepter', titleRu: '+1 улучшение осколка', titleEn: '+1 Shard Upgrade', effectRu: 'Случайным образом улучшает 1 обычный осколок до элитного каждую игру.', costs: [3500, 3500, 3500], quoteRu: 'Ты когда-нибудь задумывался о том, как приятно в каждой игре случайно улучшать один обычный осколок до элитного? Мы можем это устроить. Только никому из друзей не проболтайся. Это особый подарок — только для тебя.', quoteEn: "Have you considered the benefits of randomly upgrading 1 of your Common Shards to Elite each game? We could make that happen. Just don't tell any of your friends. This one's special just for you." },
+      { typeId: 'spell_amp', branch: 'magic', tier: 'minor', icon: 'item_kaya', titleRu: '+2% к усилению заклинаний', titleEn: '+2% Spell Amp', effectRu: 'Увеличивает урон от заклинаний на +2% за узел.', costs: [200, 300, 300, 2000], quoteRu: 'Вижу, ты положил глаз на эти 2% усиления заклинаний. Неужто кому-то не хватает огневой мощи, чтобы держаться в игре? Ну что ж, дружище, мы это исправим. Обязательно исправим.', quoteEn: "I see you've got your eyes on that 2% Spell Amplification. Am I right in thinking someone's not packing enough punch to stay in the game? Well, we can fix that friend. We can fix that indeed." },
+      { typeId: 'cast_range', branch: 'magic', tier: 'minor', icon: 'item_aether_lens', titleRu: '+20 к дальности применения', titleEn: '+20 Cast Range', effectRu: 'Увеличивает дальность применения способностей на +20 за узел.', costs: [600, 600], quoteRu: 'Слушай, не хотел тебя обижать, но твоя дальность применения? Она до смешного короткая! Тебе бы её удвоить, утроить, а то и учетверить. Это тебе не глупая битва Древних — в Хранилище Континуума играют по-крупному. Можешь не верить мне на слово — покопайся в своих свежайших и, несомненно, многочисленных воспоминаниях. Если враги добегут до тебя раньше, чем ты их абракадабрнёшь — ты уже труп.', quoteEn: "Listen, I didn't want to say anything. But your cast range? It's way too short. You need to be like doubling, tripling, even quadrupling that baby. This isn't the silly battle of the ancients. The Continuum Vault is big league stuff. You don't even need to take my word for it. Search your very recent and no doubt numerous memories. If your enemies reach you before you can alakazam-boozle 'em, you're already dead." },
+      { typeId: 'debuff_duration', branch: 'magic', tier: 'minor', icon: 'item_sange', titleRu: '+5% к длительности дебаффов', titleEn: '+5% Debuff Duration', effectRu: 'Продлевает отрицательные эффекты на врагах на +5% за узел.', costs: [200, 600, 1400], quoteRu: 'Вот такая просьба мне по душе. Просто. Эффективно. И абсолютно в моих силах.', quoteEn: "I like this request. Simple. Effective. Completely within my powers to grant." },
+      { typeId: 'mana_per_level', branch: 'magic', tier: 'minor', icon: 'item_energy_booster', titleRu: '+10 маны за уровень', titleEn: '+10 Mana per Level', effectRu: 'Добавляет +10 максимальной маны за каждый уровень героя.', costs: [300, 600, 800], quoteRu: 'С этими лишними +10 маны за уровень тебе хватит сил скастовать одно из моих заклинаний примерно через... о-о, сто тысяч уровней.', quoteEn: "With that extra +10 Mana per level, you should have enough to cast one of my spells in, ohh, 100,000 levels or so." },
+      { typeId: 'intelligence', branch: 'magic', tier: 'minor', icon: 'item_staff_of_wizardry', titleRu: '+1 к интеллекту', titleEn: '+1 Intelligence', effectRu: 'Добавляет +1 к интеллекту за узел.', costs: [600, 800, 1400, 1400], quoteRu: 'Ой, глядите-ка! Оно думает, что умнеет. Какая прелесть! Они и правда так похожи на нас, верно? Хочешь покрутить Устройство Континуума, малыш? Хочешь?', quoteEn: "Oh, look! It thinks it's learning. How adorable. They're really so much like us, you know? Do you want to use the Continuum Device little budy? Do you?" },
+      { typeId: 'stunned_dmg_8', branch: 'combat', tier: 'major', icon: 'item_basher', titleRu: '+8% урона по оглушённым', titleEn: '+8% Damage on Stunned Enemies', effectRu: 'Увеличивает урон по оглушённым врагам на +8%.', costs: [2500], quoteRu: 'Если я и знаю что-то о сражениях, так это то, что победить проще простого, если с самого начала полностью обездвижить противника. Они это терпеть не могут, что неудивительно, но лучший момент в том, что тебе плевать на их мнение — они вот-вот отправятся на тот свет!', quoteEn: "If there's one thing I know about battle, it's that it's really easy to win if you completely disable your opponent right from the start. They really hate it, as you might expect, but the best part is that you don't have to care about what they think. They're about to be dead!" },
+      { typeId: 'stunned_dmg_4', branch: 'combat', tier: 'minor', icon: 'item_basher', titleRu: '+4% урона по оглушённым', titleEn: '+4% Damage on Stunned Enemies', effectRu: 'Увеличивает урон по оглушённым врагам на +4%.', costs: [600], quoteRu: 'Если я и знаю что-то о сражениях, так это то, что победить проще простого, если с самого начала полностью обездвижить противника. Они это терпеть не могут, что неудивительно, но лучший момент в том, что тебе плевать на их мнение — они вот-вот отправятся на тот свет!', quoteEn: "If there's one thing I know about battle, it's that it's really easy to win if you completely disable your opponent right from the start. They really hate it, as you might expect, but the best part is that you don't have to care about what they think. They're about to be dead!" },
+      { typeId: 'low_hp_dmg', branch: 'combat', tier: 'minor', icon: 'item_armlet', titleRu: '+4% урона при низком здоровье', titleEn: '+4% Damage when low', effectRu: 'Даёт +4% к урону за узел, когда здоровье ниже 20%.', costs: [1400, 1400], quoteRu: 'У тебя такой взгляд — мол, «живым не сдамся». Прямо в глазах читается. Когда всё летит в тартарары — вот тогда наступает твой час. Тогда ты выпускаешь зверя. Зверя, который пожирает всех остальных зверей. Даже огромных жутких тварей, которые, будем надеяться, не охотятся за нами прямо сейчас. Ни один из них не годится твоему зверю и в подмётки! Нет, только не когда твой зверь просыпается ниже 20% здоровья и раздаёт дополнительный урон. Единственный минус этого чудесного зверя — что он не остаётся навсегда. Он ведь намного круче и смертоноснее тебя.', quoteEn: "You've got that 'never say die' look about you. I can see it in your eyes. When the chips are down, that's your time. That's when you unleash the beast. That beast that feasts on all other beasts. Even the big, scary beasts that we trust are not hunting to kill us at this very moment. None of them can sniff your beast's droppings. No, not with your beast appearing when your health drops below 20% to dish out extra damage. In fact, the only knock on your wonderful beast is that it doesn't stick around all the time. It's just so much cooler and deadlier than you." },
+      { typeId: 'attack_damage', branch: 'combat', tier: 'minor', icon: 'item_blades_of_attack', titleRu: '+3 к урону от атак', titleEn: '+3 Attack Damage', effectRu: 'Увеличивает урон от атак на +3 за узел.', costs: [200, 600], quoteRu: 'Обычно я не одобряю решение проблем насилием. Но то — твои проблемы. А здесь и сейчас? С моей проблемой? Безусловно, всеми силами решай мою проблему насилием! Эта проблема особенная. Она как дверца с крошечным замком, ключ от которого упал в какую-то непонятно откуда взявшуюся решётку. Так что замок надо разнести. Да что там — выбей к чертям всю дверь! Мы тут не в бирюльки играем. Я притащил тебя сюда не ради того, чтобы посмеяться над твоим провалом, как в прошлый раз.', quoteEn: "Normally I wouldn't condone solving your problems with violence. But those are your problems. Here and now? With my problem? Absolutely by all means solve my problem with violence. This problem is special. It's like a little door with a tiny lock and that lock's key is missing down some inexplicably-placed drain. So the lock needs to be smashed. Smash the whole damn door down, even. We're not playing around here people. I didn't bring you here to laugh at your failure like before." },
+      { typeId: 'cleave', branch: 'combat', tier: 'minor', icon: 'item_bfury', titleRu: '+4% к прорубающему урону', titleEn: '+4% Cleave', effectRu: 'Даёт +4% прорубающего урона (только для героев ближнего боя).', costs: [300, 1000], quoteRu: 'Ребят, это только для героев ближнего боя. Все остальные — шагом марш в конец очереди и хорошенько подумайте над тем, зачем вы вообще пытались сделать столь ужасный выбор.', quoteEn: "This one's only for the melee heroes, people. Everyone else can just go right back to the end of the line and think long and hard about why they tried to make such a terrible choice." },
+      { typeId: 'projectile_speed', branch: 'combat', tier: 'major', icon: 'item_butterfly', titleRu: '+25% к скорости снарядов', titleEn: '+25% Attack Projectile Speed', effectRu: 'Ускоряет снаряды атак на +25% (только для героев дальнего боя).', costs: [1000], quoteRu: 'Этот дар — только для героев дальнего боя. Мне дискриминировать бойцов ближнего боя нравится не больше, чем им быть дискриминированными, но сделать тут исключение — значит порвать саму ткань пространства и времени. А этим я занимаюсь исключительно ради себя.', quoteEn: "This one's only for ranged heroes. I don't like discriminating against melee heroes any more than they like being discriminated against, but to make an exception here might tear through the very fabric of time and space. And I only do that for me." },
+      { typeId: 'attack_range', branch: 'combat', tier: 'minor', icon: 'item_dragon_lance', titleRu: '+20 к дальности атаки', titleEn: '+20 Attack Range', effectRu: 'Увеличивает дальность атаки на +20 (только для героев дальнего боя).', costs: [600, 800], quoteRu: 'Это только для героев дальнего боя. Тут слово «дальность» прямо в названии написано! Если ты герой ближнего боя и всё равно пытался это выбрать — позор на твою голову.', quoteEn: "This one's only for ranged heroes. It has the word range right in the title. If you're a melee hero who tried to choose it anyway, shame on you." },
+      { typeId: 'agility', branch: 'combat', tier: 'minor', icon: 'item_blade_of_alacrity', titleRu: '+1 к ловкости', titleEn: '+1 Agility', effectRu: 'Добавляет +1 к ловкости за узел.', costs: [200, 600, 1400, 2000], quoteRu: 'Знаешь ли ты, что когда-то Аганима величали «Аганим Ловкий»? В юные годы, разумеется. Конечно, я мог бы просто наколдовать себе прибавку к ловкости, как делаю сейчас для тебя, но это как-то жалко, понимаешь? Будто пытаешься казаться тем, кем не являешься. Или, что ещё хуже, вернуть то, чем больше никогда не станешь. Грустно, право слово. Но держи!', quoteEn: "Did you know that Aghanim was once known as Aghanim the Agile? In my younger days, of course. Sure, I could just magic myself up an Agility boost like I'm doing for you, but that just seems kind of pathetic, you know? Like trying to be something you're not. Or worse, trying to recapture something you'll never truly be again. It's sad, really. But here you go!" },
+      { typeId: 'strength', branch: 'defense', tier: 'minor', icon: 'item_ogre_axe', titleRu: '+1 к силе', titleEn: '+1 Strength', effectRu: 'Добавляет +1 к силе за узел.', costs: [300, 600, 1400, 2000], quoteRu: 'Чудесно! Быть может, теперь твои подвиги силы позволят выполнить хотя бы прожиточный минимум перед смертью, а не ещё меньше!', quoteEn: "Wonderful, your feats of strength will perhaps now be able to accomplish the bare minimum before you die, instead of even less!" },
+      { typeId: 'armor', branch: 'defense', tier: 'minor', icon: 'item_platemail', titleRu: '+1 к броне', titleEn: '+1 Armor', effectRu: 'Добавляет +1 к броне за узел.', costs: [200, 600, 1400, 2000], quoteRu: '+1 к броне — очень милый дар. Не то чтобы я сам выбрал его, но я вообще не выбрал бы ни один из этих даров. Для себя я бы достал вещички посерьёзнее.', quoteEn: "+1 Armor is a very nice blessing. It's not the blessing I would choose, but I wouldn't choose any of these blessings. For me, I'd break out the good stuff." },
+      { typeId: 'evasion', branch: 'defense', tier: 'minor', icon: 'item_talisman_of_evasion', titleRu: '+2% к уклонению', titleEn: '+2% Evasion', effectRu: 'Даёт +2% уклонения от атак за узел.', costs: [1000, 1200, 2000], quoteRu: 'Думаешь, я не вижу тебя насквозь? Может, остальные и не замечают, но старику Аганиму пыль в глаза не пустишь, дружок. Ни на секунду.', quoteEn: "You think I don't see right through you? The others might not see it, but you can't pull the wool over ol' Aghanim's eyes, friend. Not for a second." },
+      { typeId: 'magic_res', branch: 'defense', tier: 'minor', icon: 'item_cloak', titleRu: '+2% к сопротивлению магии', titleEn: '+2% Magic Resistance', effectRu: 'Увеличивает сопротивление магии на +2% за узел.', costs: [800, 1400, 1400, 2000], quoteRu: 'Хватит скрывать, что я думаю о сопротивлении магии! Если у тебя нет собственной магии, способной остановить чужую, то тебе вообще нечего лезть в драку с теми, кто магией владеет. Ну серьёзно: неужели какой-то тупоголовый оглоди с топором может просто купить модный плащик, сойтись лицом к лицу с настоящим богом и выйти победителем?! Так не бывает. А если и бывает — такого вообще нельзя допускать.', quoteEn: "I am done hiding my feelings about magic resistance. If you don't have your own magic that can stop someone else's magic, then you've got no business getting into fights with people who can do magic in the first place. I mean, do you think some stupid Oglodi with an axe could just buy a fancy cloak and go toe to toe with a literal god and come out on top? It just doesn't happen. Or at least it shouldn't be allowed to happen if it does." },
+      { typeId: 'hp_per_level', branch: 'defense', tier: 'minor', icon: 'item_vitality_booster', titleRu: '+10 здоровья за уровень', titleEn: '+10 Health Per Level', effectRu: 'Добавляет +10 максимального здоровья за каждый уровень героя.', costs: [1400, 2000], quoteRu: 'Знаешь, веришь или нет, но Аганима Красноречивого пару раз обвиняли в болтливости. Разумеется, я бы не стал отрицать некоего словесного лидерства при общении с низшими умами — это ведь ради общего блага, а не только ради моего. Хотя, когда вокруг одни низшие умы... Впрочем, ты наверняка уже понял, к чему я клоню. Если только ты не из совсем уж низших-пренизших умов — но тогда на что я вообще трачу время? Ладно, о чём ты там спрашивал? Эта старая штуковина? Она даёт +10 здоровья за уровень. Любой дурак знает.', quoteEn: "You know, believe it or not, Aghanim the eloquent has been accused of rambling a time or two. Of course, I wouldn't admit to some level of conversational leadership when dealing with lesser minds. It's for everyone's benefit. Not only my own. But really, with everyone being a lesser mind... Well, you can probably see where I'm going with this. Unless you're one of the lesser lesser minds. And in that case why am I even wasting my time? Anyway, what were you asking about? This old thing? It gives +10 Health per level. Any idiot knows that." },
+      { typeId: 'regen_allies', branch: 'defense', tier: 'minor', icon: 'item_ring_of_health', titleRu: '+1 к регенерации рядом с союзниками', titleEn: '+1 Regen by Allies', effectRu: 'Даёт +1 регенерации здоровья, пока союзник в радиусе 300.', costs: [200, 600, 1200], quoteRu: 'Если я и повторяю что-то постоянно, так это то, что нужно держаться вместе. Это абсолютно обязательно! И никогда, слышишь, никогда не слушай того, кем ты, что вполне понятно, восхищаешься и кому доверяешь, если он вдруг скажет, что разделиться и исследовать Хранилище Континуума поодиночке «почти эффективно». Даже если это самый умный, самый красивый и определённо самый сожалеющий участник вашей команды. Так вот, чтобы приучить вас держаться рядом с друзьями, дадим вам повышенную регенерацию здоровья, когда союзник в радиусе 300. Если уж это вас, капризных див, не сплотит, то ничто не сплотит.', quoteEn: "If there's one thing I always say, it's that you need to stick together. It is absolutely imperative. And definitely never, ever listen to someone you understandably look up to and trust if they tell you it's almost efficient to split up and explore the Continuum Vault individually. Even if he is the smartest and most handsome and definitely most regretful member of your party. In fact, to encourage you to stay near your friends, let's give you increased HP Regeneration when an ally stays within 300 range. If that doesn't keep you divas together, nothing will." },
+      { typeId: 'max_lives', branch: 'death', tier: 'major', icon: 'item_bloodstone', titleRu: '+1 к макс. числу жизней', titleEn: '+1 Max Lives', effectRu: 'Увеличивает максимальный запас жизней героя на +1.', costs: [2500], quoteRu: 'Полагаю, если ты настолько хрупок, что постоянно умираешь, то возможность вместить чуть больше жизни пойдёт на пользу, да? Или я не прав? Всё ещё пытаюсь уложить в голове, до чего же ты слабый и бесполезный.', quoteEn: "I suppose if you're fragile enough to be constantly dying, having the capacity for more life would be a boon, yes? Or is that wrong? Still trying to wrap my head around how weak and useless you generally are." },
+      { typeId: 'death_time', branch: 'death', tier: 'major', icon: 'item_relic', titleRu: '-15% ко времени смерти', titleEn: '-15% Death Time', effectRu: 'Сокращает время возрождения на 15% за узел.', costs: [2000, 2500], quoteRu: 'Не думал, что ты выберешь именно это. Судя по моим наблюдениям, я был уверен, что тебе нравится быть мёртвым.', quoteEn: "I didn't think you'd choose this one. I thought you enjoyed being dead. Based on my observations." },
+      { typeId: 'death_detonation', branch: 'death', tier: 'major', icon: 'item_dagon', titleRu: 'Взрыв при смерти +75', titleEn: 'Death Detonation +75', effectRu: 'При смерти наносит 75 урона × уровень врагам в радиусе 350.', costs: [300, 3000], quoteRu: 'Когда тебя кто-то убивает, нельзя просто лежать и терпеть! Надо что-то предпринять. А конкретно — нанести 75 урона, умноженных на твой уровень, всем врагам в радиусе 350. Это отобьёт у этих шутов охоту повторять подобное.', quoteEn: "When someone kills you, you can't just lie there and take it. You have to do something. Specifically, you have to deal 75 damage multiplied by your level to enemies within a 350 AoE. That'll show those buffoons not to do that again." },
+      { typeId: 'invuln_after_death', branch: 'death', tier: 'minor', icon: 'item_aeon_disk', titleRu: '+1 сек. неуязвимости после смерти', titleEn: '+1s Invulnerability After Death', effectRu: 'Добавляет +1 секунду неуязвимости после возрождения.', costs: [600, 1200], quoteRu: 'Целая лишняя секунда неуязвимости после возрождения? Звучит потрясающе! Ну, сама смерть — штука не очень, так не делай. Но если уж помрёшь, позаботься о том, чтобы потом быть неуязвимым как можно дольше.', quoteEn: "1 extra second of invulnerability after respawning? That sounds amazing! I mean, the dying part isn't great. Don't do that. But if you do, make sure to be invulnerable for a really long time after." },
+      { typeId: 'ms_after_death', branch: 'death', tier: 'minor', icon: 'item_wind_lace', titleRu: '+15 к скорости после смерти', titleEn: '+15 Movespeed After Death', effectRu: 'Даёт +15 к скорости во время неуязвимости после возрождения.', costs: [600, 600, 1400], quoteRu: 'Ты знаешь моё отношение к смерти: лучше ты, чем я. Но даже когда умираешь ты — всё равно скверно. Потому что мне приходится искать нового тебя, а эта морока никому не нужна. Так почему бы не взять скромную прибавку и не получить +15 к скорости во время неуязвимости после возрождения? Сделай нам обоим одолжение. Второе одолжение — вдобавок ко всей этой истории со «спасением реальности ради меня».', quoteEn: "You know my feelings on dying. better you than me. But still pretty bad even when it's you. Because I've got to find another you. And that's a hassle none of us want. So why not take a little boost and get 15 extra speed while you're invulnerable after respawning. Do us both a favor. A second favor. In addition to the whole 'helping me save reality' thing." },
+      { typeId: 'as_after_death', branch: 'death', tier: 'minor', icon: 'item_hyperstone', titleRu: '+10 к скорости атаки после смерти', titleEn: '+10 Attack Speed After Death', effectRu: 'Даёт +10 к скорости атаки во время неуязвимости после возрождения.', costs: [600, 600, 800, 1400], quoteRu: 'Вполне естественно, когда тебя убили, захотеть поваляться на земле и порыдать. Но идея получше — накачаться на +10 к скорости атаки во время неуязвимости после возрождения и просто разорвать каждого, кто осмелился указать тебе на твоё совершенно заслуженное место.', quoteEn: "It's natural after someone kills you to want to roll around on the ground crying about it. But a better idea is to juice yourself up with 10 Attack Speed during your post-spawn invulnerability, and just wreck anyone who thought to put you in your obviously appropriate place." }
+    ];
+
+    const VETERAN_HEROES = [
+      { id: 'vet_magnus', name: 'Magnus', attr: 'Сила' }, { id: 'vet_mars', name: 'Mars', attr: 'Сила' },
+      { id: 'vet_omni', name: 'Omniknight', attr: 'Сила' }, { id: 'vet_snap', name: 'Snapfire', attr: 'Сила' },
+      { id: 'vet_tusk', name: 'Tusk', attr: 'Сила' }, { id: 'vet_slark', name: 'Slark', attr: 'Ловкость' },
+      { id: 'vet_sniper', name: 'Sniper', attr: 'Ловкость' }, { id: 'vet_ta', name: 'Templar Assassin', attr: 'Ловкость' },
+      { id: 'vet_ursa', name: 'Ursa', attr: 'Ловкость' }, { id: 'vet_viper', name: 'Viper', attr: 'Ловкость' },
+      { id: 'vet_weaver', name: 'Weaver', attr: 'Ловкость' }, { id: 'vet_disrupt', name: 'Disruptor', attr: 'Интеллект' },
+      { id: 'vet_qop', name: 'Queen of Pain', attr: 'Интеллект' }, { id: 'vet_ww', name: 'Winter Wyvern', attr: 'Интеллект' },
+      { id: 'vet_wd', name: 'Witch Doctor', attr: 'Интеллект' }
+    ];
+
+    function buildConstellationGraph() {
+      const nodes = [], edges = [];
+      const rootType = BLESSING_TYPES[0];
+      nodes.push({ id: 'n_root', typeId: rootType.typeId, ring: 0, cost: 100, tierIdx: 0, totalOfType: 1, branch: 'bottle', tier: 'starter', icon: rootType.icon, titleRu: rootType.titleRu, titleEn: rootType.titleEn, effectRu: rootType.effectRu, quoteRu: rootType.quoteRu, quoteEn: rootType.quoteEn, officialRu: true, x: 0, y: 0, angle: 0 });
+      const nonRootInstances = [];
+      BLESSING_TYPES.slice(1).forEach(bt => {
+        bt.costs.forEach((cost, idx) => {
+          nonRootInstances.push({ id: `n_${bt.typeId}_${idx}`, typeId: bt.typeId, cost, tierIdx: idx, totalOfType: bt.costs.length, branch: bt.branch, tier: bt.tier, icon: bt.icon, titleRu: bt.titleRu, titleEn: bt.titleEn, effectRu: bt.effectRu, quoteRu: bt.quoteRu, quoteEn: bt.quoteEn, officialRu: false });
+        });
+      });
+      const branchOrder = ['bottle', 'economy', 'magic', 'combat', 'defense', 'death'];
+      const rings = [[], [], [], [], [], []];
+      const ringTargets = [0, 6, 18, 30, 39];
+      const remaining = [];
+      branchOrder.forEach(bId => {
+        const list = nonRootInstances.filter(n => n.branch === bId).sort((a, b) => a.cost - b.cost || (a.tier === 'major' ? -1 : 1));
+        rings[1].push(list[0]);
+        remaining.push(...list.slice(1));
+      });
+      remaining.sort((a, b) => a.cost - b.cost || branchOrder.indexOf(a.branch) - branchOrder.indexOf(b.branch));
+      let cursor = 0;
+      for (let r = 2; r <= 4; r++) {
+        const slice = remaining.slice(cursor, cursor + ringTargets[r]);
+        slice.sort((a, b) => branchOrder.indexOf(a.branch) - branchOrder.indexOf(b.branch) || a.cost - b.cost);
+        rings[r] = slice;
+        cursor += ringTargets[r];
+      }
+      VETERAN_HEROES.forEach(h => {
+        rings[5].push({ id: `n_${h.id}`, typeId: h.id, cost: 2000, tierIdx: 0, totalOfType: 1, branch: 'veterans', tier: 'veteran', attr: h.attr, icon: h.id, titleRu: `Возвращение ветерана: ${h.name}`, titleEn: `A Veteran Returns (${h.name})`, effectRu: `Разблокирует героя-ветерана ${h.name} (${h.attr}) из первого «Лабиринта Аганима» 2020 года.`, quoteRu: `${h.name} возвращается, чтобы помочь исследовать Хранилище Континуума.`, quoteEn: `${h.name} is back to help explore the Continuum Vault.`, officialRu: false });
+      });
+      const radii = [0, 102, 194, 294, 396, 488];
+      const twist = [0, -18, -6, 10, 22, 12];
+      for (let r = 1; r <= 5; r++) {
+        const list = rings[r];
+        list.forEach((node, idx) => {
+          const step = 360 / list.length;
+          const jitterR = ((idx * 37 + r * 19) % 21) - 10;
+          const jitterDeg = (((idx * 29 + r * 13) % 9) - 4) * 0.7;
+          const deg = -90 + twist[r] + idx * step + jitterDeg;
+          const rad = (deg * Math.PI) / 180;
+          const dist = radii[r] + (r === 5 ? (idx % 2 === 0 ? 8 : -8) : jitterR);
+          node.ring = r; node.angle = deg;
+          node.x = Math.round(Math.cos(rad) * dist);
+          node.y = Math.round(Math.sin(rad) * dist);
+          nodes.push(node);
+        });
+      }
+      rings[1].forEach(n1 => edges.push({ from: 'n_root', to: n1.id, ring: 1 }));
+      for (let r = 2; r <= 5; r++) {
+        const prev = rings[r - 1], curr = rings[r];
+        curr.forEach((node, idx) => {
+          let best = prev[0], bestD = Infinity;
+          prev.forEach(p => { const d = Math.hypot(p.x - node.x, p.y - node.y); if (d < bestD) { bestD = d; best = p; } });
+          edges.push({ from: best.id, to: node.id, ring: r });
+          if (r <= 4 && idx % 2 === 0) edges.push({ from: node.id, to: curr[(idx + 1) % curr.length].id, ring: r, orbital: true });
+        });
+      }
+      return { nodes, edges };
+    }
+
+    const GRAPH = buildConstellationGraph();
+    const NODE_MAP = Object.fromEntries(GRAPH.nodes.map(n => [n.id, n]));
+    const ADJ = {};
+    GRAPH.nodes.forEach(n => ADJ[n.id] = []);
+    GRAPH.edges.forEach(e => { ADJ[e.from].push(e.to); ADJ[e.to].push(e.from); });
+
+    function findShortestPath(unlockedSet, targetId) {
+      if (unlockedSet.has(targetId)) return [targetId];
+      const queue = [], parent = {}, visited = new Set();
+      if (unlockedSet.size === 0) { queue.push('n_root'); visited.add('n_root'); }
+      else unlockedSet.forEach(id => { queue.push(id); visited.add(id); });
+      while (queue.length > 0) {
+        const cur = queue.shift();
+        if (cur === targetId) break;
+        for (const nxt of ADJ[cur]) {
+          if (!visited.has(nxt)) { visited.add(nxt); parent[nxt] = cur; queue.push(nxt); }
+        }
+      }
+      if (!visited.has(targetId)) return [];
+      const path = [];
+      let cur = targetId;
+      while (cur !== undefined) { path.push(cur); cur = parent[cur]; }
+      return path.reverse();
+    }
+
+    function buildDemoUnlocked() {
+      const demo = new Set(['n_root']);
+      const target = GRAPH.nodes.find(n => n.id === 'n_vet_slark') || GRAPH.nodes[GRAPH.nodes.length - 1];
+      findShortestPath(demo, target.id).forEach(id => demo.add(id));
+      const m2 = GRAPH.nodes.find(n => n.ring === 3 && n.branch === 'magic' && n.tier === 'major');
+      if (m2) findShortestPath(demo, m2.id).forEach(id => demo.add(id));
+      const m3 = GRAPH.nodes.find(n => n.ring === 2 && n.branch === 'economy');
+      if (m3) findShortestPath(demo, m3.id).forEach(id => demo.add(id));
+      return demo;
+    }
+
+    const state = { view: 'map', selectedId: 'n_root', activeBranch: 'all', searchQuery: '', showOriginalEn: false, showLabels: false, unlocked: buildDemoUnlocked(), previewPath: [], panX: 0, panY: 0, zoom: 1 };
+    try { const s = localStorage.getItem('aghanim_constellation_v2'); if (s) { const arr = JSON.parse(s); if (Array.isArray(arr)) state.unlocked = new Set(arr.filter(id => NODE_MAP[id])); } } catch (e) {}
+    const saveState = () => { try { localStorage.setItem('aghanim_constellation_v2', JSON.stringify(Array.from(state.unlocked))); } catch (e) {} };
+    const formatNum = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    const isAvailableToUnlock = id => !state.unlocked.has(id) && (id === 'n_root' || ADJ[id].some(nb => state.unlocked.has(nb)));
+    const matchesFilters = node => {
+      if (state.activeBranch !== 'all' && node.branch !== state.activeBranch) return false;
+      const q = state.searchQuery.trim().toLowerCase();
+      return !q || `${node.titleRu} ${node.titleEn} ${node.effectRu} ${node.quoteRu} ${node.quoteEn}`.toLowerCase().includes(q);
+    };
+    const ringEnergyColor = r => r <= 1 ? '#38bdf8' : (r === 2 ? '#6366f1' : (r === 3 ? '#d946ef' : (r === 4 ? '#f43f5e' : '#facc15')));
+    const computeTotals = () => {
+      let spent = 0, maxCost = 0;
+      GRAPH.nodes.forEach(n => { maxCost += n.cost; if (state.unlocked.has(n.id)) spent += n.cost; });
+      return { spent, count: state.unlocked.size, maxCost, maxNodes: GRAPH.nodes.length };
+    };
+
+    const SVG_NS = 'http://www.w3.org/2000/svg';
+    const svgEl = (tag, attrs = {}) => { const el = document.createElementNS(SVG_NS, tag); for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v); return el; };
+    function curvedPathD(p1, p2, orbital) {
+      const mx = (p1.x + p2.x) / 2, my = (p1.y + p2.y) / 2;
+      if (orbital) {
+        const len = Math.hypot(mx, my) || 1;
+        return `M ${p1.x} ${p1.y} Q ${(mx + (mx / len) * 18).toFixed(1)} ${(my + (my / len) * 18).toFixed(1)} ${p2.x} ${p2.y}`;
+      }
+      return `M ${p1.x} ${p1.y} Q ${(mx - (p2.y - p1.y) * 0.16).toFixed(1)} ${(my + (p2.x - p1.x) * 0.16).toFixed(1)} ${p2.x} ${p2.y}`;
+    }
+
+    function renderStaticCosmos() {
+      const starLayer = document.getElementById('starfieldLayer');
+      const astroLayer = document.getElementById('astrolabeLayer');
+      let seed = 4242;
+      const rand = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+      for (let i = 0; i < 165; i++) {
+        const st = svgEl('circle', { cx: ((rand() - 0.5) * 1400).toFixed(1), cy: ((rand() - 0.5) * 1240).toFixed(1), r: (0.6 + rand() * 1.6).toFixed(1), fill: i % 6 === 0 ? '#7dd3fc' : (i % 9 === 0 ? '#e9d5ff' : '#cbd5e1'), opacity: (0.18 + rand() * 0.55).toFixed(2), class: i % 3 === 0 ? 'star-twinkle' : '' });
+        if (i % 3 === 0) st.style.animationDelay = `${(rand() * 4).toFixed(1)}s`;
+        starLayer.appendChild(st);
+      }
+      [[-420, -40], [340, -340], [280, 320], [-290, 340]].forEach(([fx, fy]) => {
+        starLayer.appendChild(svgEl('circle', { cx: fx, cy: fy, r: 34, fill: 'url(#starFlare)', opacity: '0.45' }));
+        starLayer.appendChild(svgEl('line', { x1: fx - 24, y1: fy, x2: fx + 24, y2: fy, stroke: '#bae6fd', 'stroke-opacity': '0.4', 'stroke-width': '1' }));
+        starLayer.appendChild(svgEl('line', { x1: fx, y1: fy - 24, x2: fx, y2: fy + 24, stroke: '#bae6fd', 'stroke-opacity': '0.4', 'stroke-width': '1' }));
+      });
+      [102, 194, 294, 396, 488].forEach((r, idx) => {
+        astroLayer.appendChild(svgEl('circle', { cx: 0, cy: 0, r, fill: 'none', stroke: 'rgba(129, 140, 248, 0.14)', 'stroke-width': idx === 4 ? '1.3' : '0.9', 'stroke-dasharray': idx % 2 === 0 ? '3 10' : 'none', class: idx % 2 === 0 ? 'ring-spin-slow' : 'ring-spin-rev' }));
+      });
+    }
+
+    function renderConstellation() {
+      const edgesLayer = document.getElementById('edgesLayer');
+      const previewLayer = document.getElementById('pathPreviewLayer');
+      const nodesLayer = document.getElementById('nodesLayer');
+      edgesLayer.innerHTML = ''; previewLayer.innerHTML = ''; nodesLayer.innerHTML = '';
+      const previewSet = new Set(state.previewPath);
+
+      GRAPH.edges.forEach(edge => {
+        const p1 = NODE_MAP[edge.from], p2 = NODE_MAP[edge.to];
+        const both = state.unlocked.has(edge.from) && state.unlocked.has(edge.to);
+        const vis = matchesFilters(p1) || matchesFilters(p2);
+        const d = curvedPathD(p1, p2, edge.orbital);
+        if (both) {
+          edgesLayer.appendChild(svgEl('path', { d, fill: 'none', stroke: ringEnergyColor(Math.max(p1.ring, p2.ring)), 'stroke-width': '4.2', 'stroke-opacity': vis ? '0.88' : '0.18', 'stroke-linecap': 'round', filter: 'url(#beamGlow)' }));
+          edgesLayer.appendChild(svgEl('path', { d, fill: 'none', stroke: '#ffffff', 'stroke-width': '1.2', 'stroke-opacity': vis ? '0.65' : '0.12', 'stroke-linecap': 'round' }));
+        } else {
+          edgesLayer.appendChild(svgEl('path', { d, fill: 'none', stroke: 'rgba(148, 163, 214, 0.25)', 'stroke-width': edge.orbital ? '0.9' : '1.15', 'stroke-opacity': vis ? '0.8' : '0.14' }));
+        }
+      });
+
+      for (let i = 0; i < state.previewPath.length - 1; i++) {
+        const p1 = NODE_MAP[state.previewPath[i]], p2 = NODE_MAP[state.previewPath[i + 1]];
+        previewLayer.appendChild(svgEl('path', { d: curvedPathD(p1, p2, p1.ring === p2.ring), fill: 'none', stroke: '#fde047', 'stroke-width': '3.5', 'stroke-linecap': 'round', class: 'path-preview-beam', filter: 'url(#beamGlow)' }));
+      }
+
+      GRAPH.nodes.forEach(node => {
+        const match = matchesFilters(node), unlocked = state.unlocked.has(node.id), avail = isAvailableToUnlock(node.id), selected = state.selectedId === node.id, onPreview = previewSet.has(node.id);
+        const r = node.tier === 'starter' ? 32 : (node.tier === 'major' ? 22 : (node.tier === 'veteran' ? 19 : 14));
+        const clipId = node.tier === 'starter' ? 'clipR32' : (node.tier === 'major' ? 'clipR22' : (node.tier === 'veteran' ? 'clipR19' : 'clipR14'));
+        const ringColor = unlocked ? ringEnergyColor(node.ring) : (avail ? '#818cf8' : '#334155');
+        const g = svgEl('g', { class: `medallion-node ${match ? '' : 'dimmed'}`, transform: `translate(${node.x}, ${node.y})` });
+        if (selected || onPreview) g.appendChild(svgEl('circle', { r: r + 8, fill: selected ? 'rgba(129, 140, 248, 0.22)' : 'rgba(250, 204, 21, 0.16)', stroke: selected ? '#e0f2fe' : '#fde047', 'stroke-width': selected ? '2.2' : '1.8', class: 'node-selected-halo', filter: 'url(#medallionGlow)' }));
+        if (unlocked) g.appendChild(svgEl('circle', { r: r + 3.5, fill: ringColor, 'fill-opacity': '0.26', filter: 'url(#medallionGlow)' }));
+        g.appendChild(svgEl('circle', { r, fill: '#0a0e22', stroke: unlocked ? '#fde68a' : ringColor, 'stroke-width': node.tier === 'starter' ? '3.2' : (node.tier === 'major' || node.tier === 'veteran' ? '2.4' : '1.7'), class: 'medallion-ring' }));
+        const imgR = r - 3;
+        g.appendChild(svgEl('image', { href: ASSETS[node.icon] || ASSETS.item_bottle, x: -imgR, y: -imgR, width: imgR * 2, height: imgR * 2, 'clip-path': `url(#${clipId})`, preserveAspectRatio: 'xMidYMid slice', opacity: unlocked ? '1' : (avail ? '0.72' : '0.32') }));
+        if (!unlocked) g.appendChild(svgEl('circle', { r: imgR, fill: '#070a1c', 'fill-opacity': avail ? '0.22' : '0.52' }));
+        if ((avail || selected) && !unlocked) {
+          const pill = svgEl('g', { transform: `translate(0, ${-(r + 17)})` });
+          pill.appendChild(svgEl('rect', { x: -23, y: -9, width: 46, height: 16, rx: 4, fill: selected ? '#6d28d9' : 'rgba(67, 56, 202, 0.92)', stroke: '#a5b4fc', 'stroke-width': '0.9' }));
+          const txt = svgEl('text', { y: 2.5, 'text-anchor': 'middle', fill: '#ffffff', 'font-size': '8.5', 'font-weight': '700' });
+          txt.textContent = formatNum(node.cost);
+          pill.appendChild(txt); g.appendChild(pill);
+        }
+        if (state.showLabels || node.tier === 'starter' || node.tier === 'veteran') {
+          const lbl = node.tier === 'veteran' ? node.titleRu.replace('Возвращение ветерана: ', '') : (node.titleRu.length > 20 ? node.titleRu.slice(0, 18) + '…' : node.titleRu);
+          const tEl = svgEl('text', { y: r + 13, 'text-anchor': 'middle', fill: selected ? '#ffffff' : (unlocked ? '#e0f2fe' : '#94a3b8'), 'font-size': node.tier === 'starter' ? '10' : '8.5', 'font-weight': selected || node.tier === 'starter' ? '700' : '500' });
+          tEl.textContent = lbl; g.appendChild(tEl);
+        }
+        g.addEventListener('click', e => { e.stopPropagation(); selectNode(node.id); });
+        g.addEventListener('dblclick', e => { e.stopPropagation(); toggleUnlockNode(node.id); });
+        g.addEventListener('mouseenter', e => showTooltip(node, e));
+        g.addEventListener('mousemove', e => moveTooltip(e));
+        g.addEventListener('mouseleave', hideTooltip);
+        nodesLayer.appendChild(g);
+      });
+      applyTransform();
+    }
+
+    const applyTransform = () => document.getElementById('viewportGroup').setAttribute('transform', `translate(${state.panX}, ${state.panY}) scale(${state.zoom})`);
+    const tooltipEl = document.getElementById('mapTooltip');
+    const showTooltip = (node, e) => { document.getElementById('tooltipTitle').textContent = node.titleRu; document.getElementById('tooltipCost').textContent = `${formatNum(node.cost)} фр.`; document.getElementById('tooltipPreview').textContent = `«${node.quoteRu}»`; tooltipEl.classList.remove('hidden'); moveTooltip(e); };
+    const moveTooltip = e => { tooltipEl.style.left = `${Math.max(8, Math.min(window.innerWidth - 310, e.clientX + 14))}px`; tooltipEl.style.top = `${Math.max(8, Math.min(window.innerHeight - 105, e.clientY + 14))}px`; };
+    const hideTooltip = () => tooltipEl.classList.add('hidden');
+    const tierName = t => t === 'starter' ? 'Стартовый дар' : (t === 'major' ? 'Крупный дар' : (t === 'veteran' ? 'Герой-ветеран' : 'Малый дар'));
+
+    function updateSidebarStats() {
+      const { spent, count, maxCost, maxNodes } = computeTotals();
+      document.getElementById('sidebarFragments').innerHTML = `${formatNum(spent)} <span class="text-indigo-300/65 font-normal text-xs">/ ${formatNum(maxCost)}</span>`;
+      document.getElementById('sidebarNodes').textContent = `${count} / ${maxNodes}`;
+      document.getElementById('barNodes').style.width = `${Math.max(2, (count / maxNodes) * 100)}%`;
+      document.getElementById('barFragments').style.width = `${Math.max(2, (spent / maxCost) * 100)}%`;
+      const pct = count / maxNodes;
+      let roman = 'I', rank = 'УЧЕНИК';
+      if (pct >= 0.9) { roman = 'V'; rank = 'ВЫСШИЙ МАГ'; } else if (pct >= 0.65) { roman = 'IV'; rank = 'ВЕЛИКИЙ МАГ'; } else if (pct >= 0.35) { roman = 'III'; rank = 'ЗАКЛИНАТЕЛЬ'; } else if (pct >= 0.15) { roman = 'II'; rank = 'ЧАРОДЕЙ'; }
+      document.getElementById('ascensionRoman').textContent = roman;
+      document.getElementById('ascensionName').textContent = rank;
+    }
+
+    function renderDetailCard() {
+      const node = NODE_MAP[state.selectedId] || GRAPH.nodes[0];
+      const unlocked = state.unlocked.has(node.id);
+      document.getElementById('detailIcon').src = ASSETS[node.icon] || ASSETS.item_bottle;
+      document.getElementById('detailRingBadge').textContent = node.ring === 0 ? 'ЦЕНТР' : `КРУГ ${node.ring}`;
+      document.getElementById('detailTitleRu').textContent = node.titleRu;
+      document.getElementById('detailCost').textContent = formatNum(node.cost);
+      document.getElementById('detailTierBadge').textContent = tierName(node.tier);
+      document.getElementById('detailOccurrenceBadge').textContent = node.totalOfType > 1 ? `Узел ${node.tierIdx + 1} из ${node.totalOfType}` : (node.officialRu ? 'Официальный текст RU' : 'Уникальный узел');
+      document.getElementById('detailEffect').textContent = node.effectRu;
+      document.getElementById('detailQuoteRu').textContent = `«${node.quoteRu}»`;
+      document.getElementById('detailQuoteEn').textContent = `"${node.quoteEn}" — Aghanim`;
+      document.getElementById('detailQuoteEnWrap').classList.toggle('hidden', !state.showOriginalEn);
+      document.getElementById('btnToggleEn').textContent = state.showOriginalEn ? 'Скрыть EN' : 'Оригинал (EN)';
+      const unlockBtn = document.getElementById('btnUnlockSelected');
+      if (unlocked) { unlockBtn.textContent = 'Отменить узел'; unlockBtn.className = 'py-2 px-3 rounded-md text-xs font-bold uppercase tracking-wide transition bg-slate-800 hover:bg-rose-600/70 text-rose-100 border border-rose-400/40'; }
+      else { unlockBtn.textContent = `Изучить (${formatNum(node.cost)})`; unlockBtn.className = 'py-2 px-3 rounded-md text-xs font-bold uppercase tracking-wide transition bg-indigo-600 hover:bg-indigo-500 text-white border border-indigo-300/40 shadow'; }
+      const pathBox = document.getElementById('pathSummaryBox');
+      if (state.previewPath.length >= 2) {
+        const needed = state.previewPath.filter(id => !state.unlocked.has(id));
+        const sum = needed.reduce((s, id) => s + NODE_MAP[id].cost, 0);
+        pathBox.textContent = `Путь проложен: нужно изучить ${needed.length} узл. на сумму ${formatNum(sum)} фр. Нажми «Изучить», чтобы открыть весь путь.`;
+        pathBox.classList.remove('hidden');
+      } else pathBox.classList.add('hidden');
+    }
+
+    function renderBranchBars() {
+      ['branchFilterBar', 'readerBranchBar'].forEach(barId => {
+        const bar = document.getElementById(barId); bar.innerHTML = '';
+        BRANCHES.forEach(b => {
+          const active = state.activeBranch === b.id;
+          const btn = document.createElement('button'); btn.type = 'button';
+          btn.className = `px-2 py-1 rounded text-[11px] font-semibold border transition flex items-center gap-1.5 ${active ? 'bg-indigo-600/55 border-sky-300/70 text-white shadow' : 'bg-[#0c1129]/85 border-indigo-500/25 text-indigo-200/75 hover:text-white hover:border-indigo-400/50'}`;
+          btn.innerHTML = `<span class="w-1.5 h-1.5 rounded-full" style="background:${b.color}"></span><span>${b.name}</span>`;
+          btn.addEventListener('click', () => { state.activeBranch = b.id; renderAll(); });
+          bar.appendChild(btn);
+        });
+      });
+    }
+
+    function renderReaderView() {
+      const grid = document.getElementById('readerGrid'); grid.innerHTML = '';
+      const q = state.searchQuery.trim().toLowerCase(), cards = [];
+      BLESSING_TYPES.forEach(bt => {
+        if (state.activeBranch !== 'all' && bt.branch !== state.activeBranch) return;
+        if (q && !`${bt.titleRu} ${bt.titleEn} ${bt.effectRu} ${bt.quoteRu} ${bt.quoteEn}`.toLowerCase().includes(q)) return;
+        const sample = GRAPH.nodes.find(n => n.typeId === bt.typeId);
+        cards.push({ focusId: sample ? sample.id : 'n_root', icon: bt.icon, branch: bt.branch, tier: bt.tier, titleRu: bt.titleRu, subtitle: `${bt.titleEn} • ${bt.costs.map(formatNum).join(' / ')} фр.`, effectRu: bt.effectRu, quoteRu: bt.quoteRu, quoteEn: bt.quoteEn });
+      });
+      if (state.activeBranch === 'all' || state.activeBranch === 'veterans') {
+        VETERAN_HEROES.forEach(h => {
+          const titleRu = `Возвращение ветерана: ${h.name}`;
+          if (q && !`${titleRu} ${h.attr} a veteran returns continuum vault`.toLowerCase().includes(q)) return;
+          cards.push({ focusId: `n_${h.id}`, icon: h.id, branch: 'veterans', tier: 'veteran', titleRu, subtitle: `A Veteran Returns • 2 000 фр. (${h.attr})`, effectRu: `Разблокирует героя-ветерана ${h.name} из первого Лабиринта Аганима.`, quoteRu: `${h.name} возвращается, чтобы помочь исследовать Хранилище Континуума.`, quoteEn: `${h.name} is back to help explore the Continuum Vault.` });
+        });
+      }
+      if (!cards.length) { grid.innerHTML = '<div class="col-span-full text-center py-12 text-indigo-300/75 text-sm">По этому фильтру ничего не найдено.</div>'; return; }
+      cards.forEach(c => {
+        const b = BRANCH_MAP[c.branch];
+        const art = document.createElement('article'); art.className = 'dota-quote-card rounded-xl p-4 flex flex-col gap-3';
+        art.innerHTML = `<div class="flex items-start gap-3"><img src="${ASSETS[c.icon] || ASSETS.item_bottle}" alt="${c.titleRu}" class="w-12 h-12 rounded-lg object-cover border border-sky-400/50 shrink-0" /><div class="min-w-0 flex-1"><div class="text-[10px] uppercase tracking-wider font-bold text-indigo-300/80">${b?.name || ''} • ${tierName(c.tier)}</div><h3 class="text-sm font-extrabold uppercase text-white leading-snug mt-0.5">${c.titleRu}</h3><div class="text-[11px] text-amber-300/90 mt-0.5">${c.subtitle}</div></div><button type="button" data-focus="${c.focusId}" class="shrink-0 px-2.5 py-1 rounded bg-indigo-500/25 hover:bg-indigo-500/45 border border-indigo-400/40 text-[11px] text-indigo-100 font-semibold transition">На карте</button></div><p class="text-xs text-sky-100/85">${c.effectRu}</p><blockquote class="bg-[#0b1027]/80 rounded-md p-3 border-l-2 border-sky-400 text-xs sm:text-[13px] leading-relaxed text-white italic flex-1">«${c.quoteRu}»<div class="mt-1.5 text-right text-[11px] font-bold text-sky-200/85">— Аганим</div></blockquote>${state.showOriginalEn ? `<div class="text-[11px] text-indigo-200/75 italic pt-1 border-t border-indigo-400/20">"${c.quoteEn}"</div>` : ''}`;
+        art.querySelector('[data-focus]').addEventListener('click', () => { state.selectedId = c.focusId; state.previewPath = []; setView('map'); centerOnNode(c.focusId); });
+        grid.appendChild(art);
+      });
+    }
+
+    function renderAll() { renderBranchBars(); updateSidebarStats(); renderConstellation(); renderDetailCard(); if (state.view === 'reader') renderReaderView(); }
+    function selectNode(id) { state.selectedId = id; state.previewPath = []; renderConstellation(); renderDetailCard(); }
+    function pruneDisconnected() {
+      if (!state.unlocked.has('n_root')) { state.unlocked.clear(); return; }
+      const reachable = new Set(['n_root']), q = ['n_root'];
+      while (q.length > 0) { const cur = q.shift(); for (const nb of ADJ[cur]) if (state.unlocked.has(nb) && !reachable.has(nb)) { reachable.add(nb); q.push(nb); } }
+      state.unlocked = reachable;
+    }
+    function toggleUnlockNode(id) {
+      if (state.unlocked.has(id)) { state.unlocked.delete(id); pruneDisconnected(); }
+      else { const path = findShortestPath(state.unlocked, id); if (path.length) path.forEach(pid => state.unlocked.add(pid)); else state.unlocked.add(id); }
+      state.previewPath = []; saveState(); renderAll();
+    }
+    function tracePathToSelected() { state.previewPath = state.unlocked.has(state.selectedId) ? [] : findShortestPath(state.unlocked, state.selectedId); renderConstellation(); renderDetailCard(); }
+    function centerOnNode(id) { const n = NODE_MAP[id]; if (!n) return; state.zoom = Math.max(state.zoom, 1.3); state.panX = -n.x * state.zoom * 0.55; state.panY = -n.y * state.zoom * 0.55; applyTransform(); }
+    function setView(view) {
+      state.view = view;
+      document.getElementById('mapViewContainer').classList.toggle('hidden', view !== 'map');
+      document.getElementById('readerViewContainer').classList.toggle('hidden', view !== 'reader');
+      document.getElementById('btnViewMap').className = view === 'map' ? 'px-2.5 py-1 rounded text-white bg-white/15 shadow-sm transition' : 'px-2.5 py-1 rounded text-indigo-100/80 hover:text-white transition';
+      document.getElementById('btnViewReader').className = view === 'reader' ? 'px-2.5 py-1 rounded text-white bg-white/15 shadow-sm transition' : 'px-2.5 py-1 rounded text-indigo-100/80 hover:text-white transition';
+      if (view === 'reader') renderReaderView();
+    }
+
+    const UNIQUE_SAMPLE_IDS = [...BLESSING_TYPES.map(bt => GRAPH.nodes.find(n => n.typeId === bt.typeId)?.id).filter(Boolean), 'n_vet_magnus'];
+    function cycleUniqueQuote(delta) {
+      const curNode = NODE_MAP[state.selectedId];
+      let idx = UNIQUE_SAMPLE_IDS.findIndex(id => NODE_MAP[id].typeId === curNode?.typeId);
+      if (idx < 0) idx = 0;
+      selectNode(UNIQUE_SAMPLE_IDS[(idx + delta + UNIQUE_SAMPLE_IDS.length) % UNIQUE_SAMPLE_IDS.length]);
+    }
+    function randomUniqueQuote() {
+      const curType = NODE_MAP[state.selectedId]?.typeId;
+      const pool = UNIQUE_SAMPLE_IDS.filter(id => NODE_MAP[id].typeId !== curType);
+      selectNode(pool[Math.floor(Math.random() * pool.length)]);
+    }
+
+    const mapWrap = document.getElementById('mapCanvasWrap');
+    let dragging = false, dragStart = { x: 0, y: 0, panX: 0, panY: 0 };
+    mapWrap.addEventListener('pointerdown', e => { if (e.target.closest('.medallion-node') || e.target.closest('button')) return; dragging = true; mapWrap.classList.add('grabbing'); dragStart = { x: e.clientX, y: e.clientY, panX: state.panX, panY: state.panY }; mapWrap.setPointerCapture(e.pointerId); });
+    mapWrap.addEventListener('pointermove', e => { if (!dragging) return; const rect = document.getElementById('constellationSvg').getBoundingClientRect(); const f = Math.max(1220 / Math.max(rect.width, 1), 1120 / Math.max(rect.height, 1)); state.panX = dragStart.panX + (e.clientX - dragStart.x) * f; state.panY = dragStart.panY + (e.clientY - dragStart.y) * f; applyTransform(); });
+    mapWrap.addEventListener('pointerup', () => { dragging = false; mapWrap.classList.remove('grabbing'); });
+    mapWrap.addEventListener('wheel', e => { e.preventDefault(); state.zoom = Math.min(2.8, Math.max(0.55, state.zoom * (e.deltaY < 0 ? 1.12 : 0.89))); applyTransform(); }, { passive: false });
+
+    document.getElementById('btnViewMap').addEventListener('click', () => setView('map'));
+    document.getElementById('btnViewReader').addEventListener('click', () => setView('reader'));
+    document.getElementById('btnUnlockSelected').addEventListener('click', () => toggleUnlockNode(state.selectedId));
+    document.getElementById('btnTracePath').addEventListener('click', tracePathToSelected);
+    document.getElementById('btnPrevQuote').addEventListener('click', () => cycleUniqueQuote(-1));
+    document.getElementById('btnNextQuote').addEventListener('click', () => cycleUniqueQuote(1));
+    document.getElementById('btnRandomQuote').addEventListener('click', randomUniqueQuote);
+    document.getElementById('btnDemoPath').addEventListener('click', () => { state.unlocked = buildDemoUnlocked(); state.previewPath = []; saveState(); renderAll(); });
+    document.getElementById('btnResetProgress').addEventListener('click', () => { state.unlocked = new Set(['n_root']); state.previewPath = []; saveState(); renderAll(); });
+    document.getElementById('btnUnlockAll').addEventListener('click', () => { state.unlocked = new Set(GRAPH.nodes.map(n => n.id)); state.previewPath = []; saveState(); renderAll(); });
+    document.getElementById('btnToggleEn').addEventListener('click', () => { state.showOriginalEn = !state.showOriginalEn; document.getElementById('chkReaderEn').checked = state.showOriginalEn; renderDetailCard(); if (state.view === 'reader') renderReaderView(); });
+    document.getElementById('chkReaderEn').addEventListener('change', e => { state.showOriginalEn = e.target.checked; renderDetailCard(); renderReaderView(); });
+    document.getElementById('btnToggleLabels').addEventListener('click', () => { state.showLabels = !state.showLabels; document.getElementById('btnToggleLabels').classList.toggle('bg-indigo-600/60', state.showLabels); renderConstellation(); });
+    document.getElementById('btnZoomIn').addEventListener('click', () => { state.zoom = Math.min(2.8, state.zoom * 1.2); applyTransform(); });
+    document.getElementById('btnZoomOut').addEventListener('click', () => { state.zoom = Math.max(0.55, state.zoom * 0.82); applyTransform(); });
+    document.getElementById('btnResetView').addEventListener('click', () => { state.panX = 0; state.panY = 0; state.zoom = 1; applyTransform(); });
+
+    const searchInput = document.getElementById('searchInput'), clearBtn = document.getElementById('btnClearSearch');
+    searchInput.addEventListener('input', e => { state.searchQuery = e.target.value; clearBtn.classList.toggle('hidden', !state.searchQuery); renderConstellation(); if (state.view === 'reader') renderReaderView(); });
+    clearBtn.addEventListener('click', () => { state.searchQuery = ''; searchInput.value = ''; clearBtn.classList.add('hidden'); renderConstellation(); if (state.view === 'reader') renderReaderView(); });
+
+    const infoModal = document.getElementById('infoModal');
+    const openModal = () => infoModal.classList.remove('hidden');
+    const closeModal = () => infoModal.classList.add('hidden');
+    document.getElementById('btnInfo').addEventListener('click', openModal);
+    document.getElementById('btnCloseModal').addEventListener('click', closeModal);
+    document.getElementById('btnModalOk').addEventListener('click', closeModal);
+    infoModal.addEventListener('click', e => { if (e.target === infoModal) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); if (document.activeElement === searchInput) return; if (e.key === 'ArrowRight') cycleUniqueQuote(1); if (e.key === 'ArrowLeft') cycleUniqueQuote(-1); });
+
+    renderStaticCosmos();
+    renderAll();
+  </script>
+</body>
+</html>
