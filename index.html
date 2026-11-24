@@ -54,44 +54,44 @@
       }
       .dota-sidebar.sheet-open { transform: translateY(0); }
       .map-fullscreen-mobile { height: calc(100dvh - 52px) !important; min-height: calc(100dvh - 52px) !important; }
-      .aghanim-top-backdrop { width: min(96%, 360px) !important; }
-      #constellationSvg { padding-top: 112px; padding-bottom: 68px; }
+      .aghanim-top-backdrop { width: min(122%, 520px) !important; }
+      #constellationSvg { padding-top: 126px; padding-bottom: 52px; }
     }
     .aghanim-nebula-glow {
-      position: absolute; top: -4%; left: 0; right: 0; height: 56vh; pointer-events: none; z-index: 1;
-      background: radial-gradient(ellipse 56% 70% at 50% 22%, rgba(56, 189, 248, 0.14) 0%, rgba(124, 58, 237, 0.10) 44%, transparent 78%);
+      position: absolute; top: -4%; left: 0; right: 0; height: 84vh; pointer-events: none; z-index: 1;
+      background: radial-gradient(ellipse 64% 72% at 50% 28%, rgba(56, 189, 248, 0.16) 0%, rgba(124, 58, 237, 0.11) 46%, transparent 80%);
     }
     .aghanim-top-backdrop {
       position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-      width: min(96%, calc(41vh * 16 / 9), 860px);
+      width: min(108%, calc(78vh * 16 / 9), 1520px);
       aspect-ratio: 16 / 9; pointer-events: none; z-index: 1;
       /* Широкое плавное растворение левого и правого краёв в звёздное небо */
       -webkit-mask-image: linear-gradient(90deg,
         rgba(0,0,0,0) 0%,
-        rgba(0,0,0,0.05) 7%,
-        rgba(0,0,0,0.24) 16%,
-        rgba(0,0,0,0.65) 26%,
-        rgba(0,0,0,0.95) 35%,
-        rgba(0,0,0,1) 42%,
-        rgba(0,0,0,1) 58%,
-        rgba(0,0,0,0.95) 65%,
-        rgba(0,0,0,0.65) 74%,
-        rgba(0,0,0,0.24) 84%,
-        rgba(0,0,0,0.05) 93%,
+        rgba(0,0,0,0.05) 6%,
+        rgba(0,0,0,0.22) 14%,
+        rgba(0,0,0,0.60) 24%,
+        rgba(0,0,0,0.92) 33%,
+        rgba(0,0,0,1) 40%,
+        rgba(0,0,0,1) 60%,
+        rgba(0,0,0,0.92) 67%,
+        rgba(0,0,0,0.60) 76%,
+        rgba(0,0,0,0.22) 86%,
+        rgba(0,0,0,0.05) 94%,
         rgba(0,0,0,0) 100%
       );
       mask-image: linear-gradient(90deg,
         rgba(0,0,0,0) 0%,
-        rgba(0,0,0,0.05) 7%,
-        rgba(0,0,0,0.24) 16%,
-        rgba(0,0,0,0.65) 26%,
-        rgba(0,0,0,0.95) 35%,
-        rgba(0,0,0,1) 42%,
-        rgba(0,0,0,1) 58%,
-        rgba(0,0,0,0.95) 65%,
-        rgba(0,0,0,0.65) 74%,
-        rgba(0,0,0,0.24) 84%,
-        rgba(0,0,0,0.05) 93%,
+        rgba(0,0,0,0.05) 6%,
+        rgba(0,0,0,0.22) 14%,
+        rgba(0,0,0,0.60) 24%,
+        rgba(0,0,0,0.92) 33%,
+        rgba(0,0,0,1) 40%,
+        rgba(0,0,0,1) 60%,
+        rgba(0,0,0,0.92) 67%,
+        rgba(0,0,0,0.60) 76%,
+        rgba(0,0,0,0.22) 86%,
+        rgba(0,0,0,0.05) 94%,
         rgba(0,0,0,0) 100%
       );
     }
@@ -100,28 +100,28 @@
       /* Плавный вертикальный уход лучей в туманность созвездия */
       -webkit-mask-image: linear-gradient(180deg,
         rgba(0,0,0,0.65) 0%,
-        rgba(0,0,0,0.96) 6%,
-        rgba(0,0,0,1) 14%,
-        rgba(0,0,0,1) 48%,
-        rgba(0,0,0,0.78) 65%,
-        rgba(0,0,0,0.34) 80%,
-        rgba(0,0,0,0.08) 92%,
+        rgba(0,0,0,0.96) 5%,
+        rgba(0,0,0,1) 12%,
+        rgba(0,0,0,1) 38%,
+        rgba(0,0,0,0.72) 56%,
+        rgba(0,0,0,0.34) 74%,
+        rgba(0,0,0,0.08) 89%,
         rgba(0,0,0,0) 100%
       );
       mask-image: linear-gradient(180deg,
         rgba(0,0,0,0.65) 0%,
-        rgba(0,0,0,0.96) 6%,
-        rgba(0,0,0,1) 14%,
-        rgba(0,0,0,1) 48%,
-        rgba(0,0,0,0.78) 65%,
-        rgba(0,0,0,0.34) 80%,
-        rgba(0,0,0,0.08) 92%,
+        rgba(0,0,0,0.96) 5%,
+        rgba(0,0,0,1) 12%,
+        rgba(0,0,0,1) 38%,
+        rgba(0,0,0,0.72) 56%,
+        rgba(0,0,0,0.34) 74%,
+        rgba(0,0,0,0.08) 89%,
         rgba(0,0,0,0) 100%
       );
     }
     .aghanim-top-backdrop img {
       width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;
-      opacity: 0.88; filter: saturate(1.12) contrast(1.06) brightness(0.95); mix-blend-mode: screen;
+      opacity: 0.82; filter: saturate(1.12) contrast(1.06) brightness(0.94); mix-blend-mode: screen;
       /* Овальная виньетка исключает появление углов на любом разрешении */
       -webkit-mask-image: radial-gradient(ellipse 66% 80% at 50% 42%,
         rgba(0,0,0,1) 42%,
