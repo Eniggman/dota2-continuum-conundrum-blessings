@@ -44,9 +44,29 @@
     }
     @media (max-width: 1023px) {
       .dota-sidebar {
-        background: linear-gradient(180deg, rgba(14, 19, 44, 0.96) 0%, rgba(8, 11, 28, 0.98) 100%);
-        border-top: 1px solid rgba(110, 128, 224, 0.35);
+        position: fixed; left: 0; right: 0; bottom: 0; z-index: 35;
+        max-height: 82dvh; border-radius: 18px 18px 0 0;
+        background: linear-gradient(180deg, rgba(16, 22, 52, 0.98) 0%, rgba(8, 11, 28, 0.99) 100%);
+        border-top: 1px solid rgba(129, 140, 248, 0.55);
+        box-shadow: 0 -14px 40px rgba(0, 0, 0, 0.78);
+        transform: translateY(calc(100% - 74px));
+        transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
       }
+      .dota-sidebar.sheet-open { transform: translateY(0); }
+      .map-fullscreen-mobile { height: calc(100dvh - 52px) !important; min-height: calc(100dvh - 52px) !important; }
+    }
+    .aghanim-top-backdrop {
+      position: absolute; top: 0; left: 0; right: 0; width: 100%; max-width: 1200px; margin: 0 auto;
+      aspect-ratio: 16 / 9; max-height: 58vh; pointer-events: none; z-index: 1; overflow: hidden;
+      background: radial-gradient(ellipse 75% 65% at 50% 28%, rgba(56, 189, 248, 0.16) 0%, rgba(88, 28, 135, 0.12) 48%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.94) 56%, rgba(0,0,0,0.45) 82%, rgba(0,0,0,0) 100%);
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.94) 56%, rgba(0,0,0,0.45) 82%, rgba(0,0,0,0) 100%);
+    }
+    .aghanim-top-backdrop img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center 12%; display: block;
+      opacity: 0.85; filter: saturate(1.14) contrast(1.06); mix-blend-mode: screen;
+      -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 14%, rgba(0,0,0,1) 86%, rgba(0,0,0,0) 100%);
+      mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 14%, rgba(0,0,0,1) 86%, rgba(0,0,0,0) 100%);
     }
     .dota-quote-card {
       background: linear-gradient(135deg, rgba(32, 39, 86, 0.94) 0%, rgba(21, 25, 58, 0.96) 100%);
@@ -91,10 +111,10 @@
 </head>
 <body class="min-h-screen flex flex-col">
   <header class="sticky top-0 z-30 bg-[#070a19]/95 border-b border-indigo-500/25 backdrop-blur-md">
-    <div class="max-w-[1700px] mx-auto px-3 sm:px-4 py-2 flex flex-wrap items-center justify-between gap-2">
-      <div class="flex items-center gap-2.5 min-w-0">
-        <img id="imgHeaderCrest" alt="Лабиринт Аганима" class="w-10 h-7 rounded object-cover border border-amber-400/50 shadow-[0_0_12px_rgba(56,189,248,0.4)] shrink-0" />
-        <div class="min-w-0">
+    <div class="max-w-[1700px] mx-auto px-2.5 sm:px-4 py-1.5 sm:py-2 flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2 min-w-0">
+        <img id="imgHeaderCrest" alt="Лабиринт Аганима" class="w-8 h-6 sm:w-10 sm:h-7 rounded object-cover border border-amber-400/50 shadow-[0_0_12px_rgba(56,189,248,0.4)] shrink-0" />
+        <div class="hidden sm:block min-w-0">
           <div class="font-arcane text-xs sm:text-sm font-extrabold tracking-wider text-sky-100 leading-none truncate">
             ЛАБИРИНТ АГАНИМА <span class="text-indigo-300 font-semibold text-[10px] sm:text-xs">• BATTLE PASS</span>
           </div>
@@ -103,27 +123,48 @@
           </div>
         </div>
       </div>
-      <nav class="dota-ribbon rounded-md px-2 py-1 flex items-center gap-1 sm:gap-2 text-[11px] sm:text-xs font-bold tracking-wider uppercase">
-        <button id="btnViewMap" type="button" class="px-2.5 py-1 rounded text-white bg-white/15 shadow-sm transition">Дары Аганима</button>
+      <nav class="dota-ribbon rounded-md px-1.5 sm:px-2 py-0.5 sm:py-1 flex items-center gap-0.5 sm:gap-2 text-[10px] sm:text-xs font-bold tracking-wider uppercase shrink-0">
+        <button id="btnViewMap" type="button" class="px-2 sm:px-2.5 py-1 rounded text-white bg-white/15 shadow-sm transition"><span class="sm:hidden">Карта</span><span class="hidden sm:inline">Дары Аганима</span></button>
         <span class="text-indigo-200/40">/</span>
-        <button id="btnViewReader" type="button" class="px-2.5 py-1 rounded text-indigo-100/80 hover:text-white transition">Книга реплик</button>
+        <button id="btnViewReader" type="button" class="px-2 sm:px-2.5 py-1 rounded text-indigo-100/80 hover:text-white transition"><span class="sm:hidden">Реплики</span><span class="hidden sm:inline">Книга реплик</span></button>
         <span class="text-indigo-200/40">/</span>
-        <button id="btnInfo" type="button" class="px-2.5 py-1 rounded text-indigo-100/80 hover:text-white transition">О событии</button>
+        <button id="btnInfo" type="button" class="px-2 sm:px-2.5 py-1 rounded text-indigo-100/80 hover:text-white transition"><span class="sm:hidden">Инфо</span><span class="hidden sm:inline">О событии</span></button>
       </nav>
-      <div class="flex items-center gap-2">
-        <div class="relative">
+      <div class="flex items-center gap-1.5 sm:gap-2">
+        <button id="btnMobileSearch" type="button" title="Поиск" class="sm:hidden w-8 h-8 rounded-md bg-[#111735] border border-indigo-400/35 text-sky-200 flex items-center justify-center text-xs font-bold">🔍</button>
+        <div id="searchWrap" class="hidden sm:block relative">
           <input id="searchInput" type="text" placeholder="Поиск дара, героя, цитаты..."
-            class="w-44 sm:w-56 bg-[#0d1229] border border-indigo-400/35 rounded-md pl-2.5 pr-7 py-1 text-xs text-sky-50 placeholder-indigo-300/50 focus:outline-none focus:border-sky-400 transition" />
+            class="w-40 md:w-56 bg-[#0d1229] border border-indigo-400/35 rounded-md pl-2.5 pr-7 py-1 text-xs text-sky-50 placeholder-indigo-300/50 focus:outline-none focus:border-sky-400 transition" />
           <button id="btnClearSearch" type="button" title="Очистить" class="hidden absolute right-2 top-1/2 -translate-y-1/2 text-indigo-300 hover:text-white text-xs font-bold">✕</button>
         </div>
         <button id="btnToggleLabels" type="button" title="Показать/скрыть подписи узлов на карте"
           class="hidden md:inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium bg-[#111735] hover:bg-indigo-600/35 border border-indigo-400/30 text-indigo-100 transition">Подписи</button>
       </div>
     </div>
+    <div id="mobileSearchBar" class="hidden sm:hidden px-2.5 pb-2">
+      <div class="relative">
+        <input id="mobileSearchInput" type="text" placeholder="Поиск дара, героя или цитаты Аганима..."
+          class="w-full bg-[#0d1229] border border-indigo-400/40 rounded-lg pl-3 pr-8 py-2 text-xs text-sky-50 placeholder-indigo-300/55 focus:outline-none focus:border-sky-400" />
+        <button id="btnClearMobileSearch" type="button" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-indigo-300 text-xs font-bold">✕</button>
+      </div>
+    </div>
   </header>
 
   <main id="mapViewContainer" class="flex-1 flex flex-col-reverse lg:flex-row relative overflow-hidden" style="min-height: calc(100vh - 54px);">
-    <aside class="dota-sidebar w-full lg:w-[390px] xl:w-[425px] shrink-0 z-20 flex flex-col max-h-[68vh] lg:max-h-none overflow-y-auto">
+    <aside id="detailSidebar" class="dota-sidebar w-full lg:w-[390px] xl:w-[425px] shrink-0 z-20 flex flex-col lg:max-h-none overflow-y-auto">
+      <div id="mobileSheetToggle" class="lg:hidden sticky top-0 z-10 bg-[#12183a]/98 border-b border-indigo-400/30 px-3 pt-2 pb-2.5 cursor-pointer select-none">
+        <div class="w-10 h-1 rounded-full bg-indigo-300/45 mx-auto mb-2"></div>
+        <div class="flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2.5 min-w-0">
+            <img id="mobileSheetIcon" alt="" class="w-9 h-9 rounded-md border border-sky-400/60 object-cover shrink-0" />
+            <div class="min-w-0">
+              <div id="mobileSheetTitle" class="text-xs font-extrabold uppercase text-white truncate"></div>
+              <div id="mobileSheetSub" class="text-[11px] text-sky-300/85 truncate"></div>
+            </div>
+          </div>
+          <span id="mobileSheetArrow" class="shrink-0 px-2.5 py-1 rounded-md bg-indigo-600/45 border border-indigo-300/40 text-[11px] font-bold text-white">Реплика ▲</span>
+        </div>
+      </div>
       <div class="p-3 flex flex-col gap-2.5 flex-1">
         <div class="flex items-center justify-between gap-2 pb-2 border-b border-indigo-400/20">
           <div class="font-arcane text-lg sm:text-xl font-black leading-none continuum-title uppercase">Колдовской<br />континуум</div>
@@ -222,9 +263,10 @@
       </div>
     </aside>
 
-    <section class="relative flex-1 min-h-[54vh] lg:min-h-0 flex flex-col overflow-hidden">
-      <div id="mapCanvasWrap" class="map-canvas-wrap flex-1 relative w-full h-full min-h-[440px] lg:min-h-[620px]">
-        <svg id="constellationSvg" class="w-full h-full block" viewBox="-610 -560 1220 1120" preserveAspectRatio="xMidYMid meet">
+    <section class="relative flex-1 flex flex-col overflow-hidden map-fullscreen-mobile">
+      <div id="mapCanvasWrap" class="map-canvas-wrap flex-1 relative w-full h-full lg:min-h-[620px]">
+        <div class="aghanim-top-backdrop" aria-hidden="true"><img id="imgTopAghanim" src="./assets/aghanim_top_hero.jpg" alt="" /></div>
+        <svg id="constellationSvg" style="position: relative; z-index: 2;" class="w-full h-full block" viewBox="-650 -820 1300 1380" preserveAspectRatio="xMidYMid meet">
           <defs>
             <radialGradient id="nebulaCore" cx="50%" cy="50%" r="50%">
               <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.28" />
@@ -268,7 +310,7 @@
           <div id="tooltipPreview" class="text-[11px] text-indigo-100/85 italic mt-1 line-clamp-2"></div>
         </div>
 
-        <div class="absolute bottom-3 left-3 z-20 flex items-center gap-1.5 glass-hud rounded-lg p-1.5">
+        <div class="absolute bottom-[86px] lg:bottom-3 left-3 z-20 flex items-center gap-1.5 glass-hud rounded-lg p-1.5">
           <button id="btnZoomIn" type="button" title="Приблизить" class="w-8 h-8 rounded bg-[#131938] hover:bg-indigo-600/45 text-sky-100 font-bold text-sm transition">+</button>
           <button id="btnZoomOut" type="button" title="Отдалить" class="w-8 h-8 rounded bg-[#131938] hover:bg-indigo-600/45 text-sky-100 font-bold text-sm transition">−</button>
           <button id="btnResetView" type="button" title="В центр" class="px-2.5 h-8 rounded bg-[#131938] hover:bg-indigo-600/45 text-indigo-100 text-xs font-medium transition">Центр</button>
@@ -575,6 +617,7 @@
         const g = svgEl('g', { class: `medallion-node ${match ? '' : 'dimmed'}`, transform: `translate(${node.x}, ${node.y})` });
         if (selected || onPreview) g.appendChild(svgEl('circle', { r: r + 8, fill: selected ? 'rgba(129, 140, 248, 0.22)' : 'rgba(250, 204, 21, 0.16)', stroke: selected ? '#e0f2fe' : '#fde047', 'stroke-width': selected ? '2.2' : '1.8', class: 'node-selected-halo', filter: 'url(#medallionGlow)' }));
         if (unlocked) g.appendChild(svgEl('circle', { r: r + 3.5, fill: ringColor, 'fill-opacity': '0.26', filter: 'url(#medallionGlow)' }));
+        g.appendChild(svgEl('circle', { r: Math.max(r + 9, 22), fill: 'transparent' }));
         g.appendChild(svgEl('circle', { r, fill: '#0a0e22', stroke: unlocked ? '#fde68a' : ringColor, 'stroke-width': node.tier === 'starter' ? '3.2' : (node.tier === 'major' || node.tier === 'veteran' ? '2.4' : '1.7'), class: 'medallion-ring' }));
         const imgR = r - 3;
         g.appendChild(svgEl('image', { href: ASSETS[node.icon] || ASSETS.item_bottle, x: -imgR, y: -imgR, width: imgR * 2, height: imgR * 2, 'clip-path': `url(#${clipId})`, preserveAspectRatio: 'xMidYMid slice', opacity: unlocked ? '1' : (avail ? '0.72' : '0.32') }));
@@ -603,7 +646,8 @@
 
     const applyTransform = () => document.getElementById('viewportGroup').setAttribute('transform', `translate(${state.panX}, ${state.panY}) scale(${state.zoom})`);
     const tooltipEl = document.getElementById('mapTooltip');
-    const showTooltip = (node, e) => { document.getElementById('tooltipTitle').textContent = node.titleRu; document.getElementById('tooltipCost').textContent = `${formatNum(node.cost)} фр.`; document.getElementById('tooltipPreview').textContent = `«${node.quoteRu}»`; tooltipEl.classList.remove('hidden'); moveTooltip(e); };
+    const supportsHover = window.matchMedia && window.matchMedia('(hover: hover)').matches;
+    const showTooltip = (node, e) => { if (!supportsHover) return; document.getElementById('tooltipTitle').textContent = node.titleRu; document.getElementById('tooltipCost').textContent = `${formatNum(node.cost)} фр.`; document.getElementById('tooltipPreview').textContent = `«${node.quoteRu}»`; tooltipEl.classList.remove('hidden'); moveTooltip(e); };
     const moveTooltip = e => { tooltipEl.style.left = `${Math.max(8, Math.min(window.innerWidth - 310, e.clientX + 14))}px`; tooltipEl.style.top = `${Math.max(8, Math.min(window.innerHeight - 105, e.clientY + 14))}px`; };
     const hideTooltip = () => tooltipEl.classList.add('hidden');
     const tierName = t => t === 'starter' ? 'Стартовый дар' : (t === 'major' ? 'Крупный дар' : (t === 'veteran' ? 'Герой-ветеран' : 'Малый дар'));
@@ -627,6 +671,9 @@
       document.getElementById('detailIcon').src = ASSETS[node.icon] || ASSETS.item_bottle;
       document.getElementById('detailRingBadge').textContent = node.ring === 0 ? 'ЦЕНТР' : `КРУГ ${node.ring}`;
       document.getElementById('detailTitleRu').textContent = node.titleRu;
+      document.getElementById('mobileSheetIcon').src = ASSETS[node.icon] || ASSETS.item_bottle;
+      document.getElementById('mobileSheetTitle').textContent = node.titleRu;
+      document.getElementById('mobileSheetSub').textContent = `${formatNum(node.cost)} фр. • Нажми, чтобы читать Аганима`;
       document.getElementById('detailCost').textContent = formatNum(node.cost);
       document.getElementById('detailTierBadge').textContent = tierName(node.tier);
       document.getElementById('detailOccurrenceBadge').textContent = node.totalOfType > 1 ? `Узел ${node.tierIdx + 1} из ${node.totalOfType}` : (node.officialRu ? 'Официальный текст RU' : 'Уникальный узел');
@@ -688,7 +735,8 @@
     }
 
     function renderAll() { renderBranchBars(); updateSidebarStats(); renderConstellation(); renderDetailCard(); if (state.view === 'reader') renderReaderView(); }
-    function selectNode(id) { state.selectedId = id; state.previewPath = []; renderConstellation(); renderDetailCard(); }
+    function setMobileSheet(open) { const sb = document.getElementById('detailSidebar'), arr = document.getElementById('mobileSheetArrow'); if (!sb || !arr) return; sb.classList.toggle('sheet-open', open); arr.textContent = open ? 'Свернуть ▼' : 'Реплика ▲'; }
+    function selectNode(id, openSheet = true) { state.selectedId = id; state.previewPath = []; renderConstellation(); renderDetailCard(); if (openSheet && window.innerWidth < 1024) setMobileSheet(true); }
     function pruneDisconnected() {
       if (!state.unlocked.has('n_root')) { state.unlocked.clear(); return; }
       const reachable = new Set(['n_root']), q = ['n_root'];
@@ -725,10 +773,27 @@
     }
 
     const mapWrap = document.getElementById('mapCanvasWrap');
-    let dragging = false, dragStart = { x: 0, y: 0, panX: 0, panY: 0 };
-    mapWrap.addEventListener('pointerdown', e => { if (e.target.closest('.medallion-node') || e.target.closest('button')) return; dragging = true; mapWrap.classList.add('grabbing'); dragStart = { x: e.clientX, y: e.clientY, panX: state.panX, panY: state.panY }; mapWrap.setPointerCapture(e.pointerId); });
-    mapWrap.addEventListener('pointermove', e => { if (!dragging) return; const rect = document.getElementById('constellationSvg').getBoundingClientRect(); const f = Math.max(1220 / Math.max(rect.width, 1), 1120 / Math.max(rect.height, 1)); state.panX = dragStart.panX + (e.clientX - dragStart.x) * f; state.panY = dragStart.panY + (e.clientY - dragStart.y) * f; applyTransform(); });
-    mapWrap.addEventListener('pointerup', () => { dragging = false; mapWrap.classList.remove('grabbing'); });
+    const activePointers = new Map(); let dragging = false, dragStart = { x: 0, y: 0, panX: 0, panY: 0 }, pinchStartDist = 0, pinchStartZoom = 1;
+    mapWrap.addEventListener('pointerdown', e => {
+      if (e.target.closest('.medallion-node') || e.target.closest('button')) return;
+      if (window.innerWidth < 1024) setMobileSheet(false);
+      activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      mapWrap.setPointerCapture(e.pointerId);
+      if (activePointers.size === 1) { dragging = true; mapWrap.classList.add('grabbing'); dragStart = { x: e.clientX, y: e.clientY, panX: state.panX, panY: state.panY }; }
+      else if (activePointers.size === 2) { dragging = false; const pts = Array.from(activePointers.values()); pinchStartDist = Math.hypot(pts[1].x - pts[0].x, pts[1].y - pts[0].y) || 1; pinchStartZoom = state.zoom; }
+    });
+    mapWrap.addEventListener('pointermove', e => {
+      if (!activePointers.has(e.pointerId)) return;
+      activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (activePointers.size === 2) { const pts = Array.from(activePointers.values()); state.zoom = Math.min(3.0, Math.max(0.55, pinchStartZoom * (Math.hypot(pts[1].x - pts[0].x, pts[1].y - pts[0].y) / pinchStartDist))); applyTransform(); return; }
+      if (!dragging) return;
+      const rect = document.getElementById('constellationSvg').getBoundingClientRect();
+      const f = Math.max(1300 / Math.max(rect.width, 1), 1380 / Math.max(rect.height, 1));
+      state.panX = dragStart.panX + (e.clientX - dragStart.x) * f; state.panY = dragStart.panY + (e.clientY - dragStart.y) * f; applyTransform();
+    });
+    const releasePointer = e => { activePointers.delete(e.pointerId); if (activePointers.size === 0) { dragging = false; mapWrap.classList.remove('grabbing'); } };
+    mapWrap.addEventListener('pointerup', releasePointer);
+    mapWrap.addEventListener('pointercancel', releasePointer);
     mapWrap.addEventListener('wheel', e => { e.preventDefault(); state.zoom = Math.min(2.8, Math.max(0.55, state.zoom * (e.deltaY < 0 ? 1.12 : 0.89))); applyTransform(); }, { passive: false });
 
     document.getElementById('btnViewMap').addEventListener('click', () => setView('map'));
@@ -761,6 +826,11 @@
     infoModal.addEventListener('click', e => { if (e.target === infoModal) closeModal(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); if (document.activeElement === searchInput) return; if (e.key === 'ArrowRight') cycleUniqueQuote(1); if (e.key === 'ArrowLeft') cycleUniqueQuote(-1); });
 
+    document.getElementById('mobileSheetToggle').addEventListener('click', () => setMobileSheet(!document.getElementById('detailSidebar').classList.contains('sheet-open')));
+    document.getElementById('btnMobileSearch').addEventListener('click', () => { const b = document.getElementById('mobileSearchBar'); b.classList.toggle('hidden'); if (!b.classList.contains('hidden')) document.getElementById('mobileSearchInput').focus(); });
+    const mobS = document.getElementById('mobileSearchInput'), mobC = document.getElementById('btnClearMobileSearch');
+    mobS.addEventListener('input', e => { state.searchQuery = e.target.value; searchInput.value = state.searchQuery; mobC.classList.toggle('hidden', !state.searchQuery); clearBtn.classList.toggle('hidden', !state.searchQuery); renderConstellation(); if (state.view === 'reader') renderReaderView(); });
+    mobC.addEventListener('click', () => { state.searchQuery = ''; mobS.value = ''; searchInput.value = ''; mobC.classList.add('hidden'); clearBtn.classList.add('hidden'); renderConstellation(); if (state.view === 'reader') renderReaderView(); });
     renderStaticCosmos();
     renderAll();
   </script>
